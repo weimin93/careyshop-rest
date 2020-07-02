@@ -1,7 +1,5 @@
 // 插件
-const { chain, set, each } = require('lodash')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
-const cdnDependencies = require('./dependencies-cdn')
 
 // 拼接路径
 const resolve = dir => require('path').join(__dirname, dir)
@@ -12,23 +10,6 @@ process.env.VUE_APP_BUILD_TIME = require('dayjs')().format('YYYY-MM-DD HH:mm:ss'
 
 // 基础路径 注意发布之前要先修改这里
 let publicPath = process.env.VUE_APP_PUBLIC_PATH || ''
-
-// 设置不参与构建的库
-let externals = {}
-cdnDependencies.forEach(pkg => { externals[pkg.name] = pkg.library })
-
-// 引入文件的 cdn 链接
-const cdn = {
-  css: cdnDependencies.map(e => e.css).filter(e => e),
-  js: cdnDependencies.map(e => e.js).filter(e => e)
-}
-
-// 多页配置，默认未开启，如需要请参考 https://cli.vuejs.org/zh/config/#pages
-const pages = undefined
-// const pages = {
-//   index: './src/main.js',
-//   subpage: './src/subpage.js'
-// }
 
 module.exports = {
   publicPath, // 根据你的实际情况更改这里
@@ -45,15 +26,12 @@ module.exports = {
       }
     }
   },
-  // 多页配置
-  pages,
   // 不输出 map 文件
   productionSourceMap: false,
   // build时 超过10K的打包成gzip 减小体积
   configureWebpack: config => {
     const configNew = {}
     if (process.env.NODE_ENV === 'production') {
-      configNew.externals = externals
       configNew.plugins = [
         // gzip
         new CompressionWebpackPlugin({
@@ -76,18 +54,6 @@ module.exports = {
   },
   // 默认设置: https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-service/lib/config/base.js
   chainWebpack: config => {
-    /**
-     * 添加 CDN 参数到 htmlWebpackPlugin 配置中
-     * 已适配多页
-     */
-    const htmlPluginNames = chain(pages).keys().map(page => 'html-' + page).value()
-    const targetHtmlPluginNames = htmlPluginNames.length ? htmlPluginNames : ['html']
-    each(targetHtmlPluginNames, name => {
-      config.plugin(name).tap(options => {
-        set(options, '[0].cdn', process.env.NODE_ENV === 'production' ? cdn : [])
-        return options
-      })
-    })
     /**
      * 删除懒加载模块的 prefetch preload，降低带宽压力
      * https://cli.vuejs.org/zh/guide/html-and-static-assets.html#prefetch
