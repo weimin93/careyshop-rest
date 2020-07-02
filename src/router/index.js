@@ -20,17 +20,32 @@ VueRouter.prototype.replace = function replace(location) {
 Vue.use(VueRouter)
 NProgress.configure({ showSpinner: false })
 
-const routes = [
-  {
-    path: '*',
-    name: '404',
-    component: () => import('@/views/public/404')
-  }
-]
-
 // 导出路由 在 main.js 里使用
 const router = new VueRouter({
-  routes
+  routes: [
+    {
+      path: '/',
+      name: 'Home',
+      component: () => import('@/views/Home')
+    },
+    {
+      path: '/favorites',
+      name: 'Favorites',
+      meta: { title: '收藏夹' },
+      component: () => import('@/views/Favorites')
+    },
+    {
+      path: '/history',
+      name: 'History',
+      meta: { title: '历史记录' },
+      component: () => import('@/views/History')
+    },
+    {
+      path: '*',
+      name: '404',
+      component: () => import('@/views/404')
+    }
+  ]
 })
 
 router.beforeEach(async(to, from, next) => {

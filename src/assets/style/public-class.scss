@@ -2,21 +2,10 @@
 
 // 补丁 base
 @import '~@/assets/style/fixed/base.scss';
-// 补丁 iconfont
-@import '~@/assets/style/fixed/iconfont.scss';
 // 补丁 element
 @import '~@/assets/style/fixed/element.scss';
 // 补丁 n-progress
 @import '~@/assets/style/fixed/n-progress.scss';
-// 补丁 tree-view
-@import '~@/assets/style/fixed/tree-view.scss';
-
-// 动画
-@import '~@/assets/style/animate/vue-transition.scss';
-
-// 在这里写公用的class
-// 注意 这个文件里只写class
-// mixin等内容请在 public.scss 里书写
 
 // 文字相关
 .#{$prefix}-tc {

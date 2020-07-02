@@ -37,8 +37,7 @@ export default {
      * @description 获取存储数据库对象
      * @param {Object} context
      */
-    database(context, {
-    } = {}) {
+    database(context) {
       return getDatabase({
         defaultValue: {}
       })
@@ -47,8 +46,7 @@ export default {
      * @description 清空存储数据库对象
      * @param {Object} context
      */
-    databaseClear(context, {
-    } = {}) {
+    databaseClear(context) {
       return getDatabase({
         validator: () => false,
         defaultValue: {}
