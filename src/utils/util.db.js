@@ -7,7 +7,6 @@ const db = low(adapter)
 
 db
   .defaults({
-    sys: {},
     database: {}
   })
   .write()

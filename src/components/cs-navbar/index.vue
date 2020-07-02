@@ -1,13 +1,12 @@
 <template>
-  <div>历史记录</div>
+  <div></div>
 </template>
 
 <script>
 export default {
-  name: 'History'
+  name: 'index'
 }
 </script>
 
 <style scoped>
-
 </style>
