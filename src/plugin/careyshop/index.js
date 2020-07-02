@@ -8,14 +8,14 @@ import 'flex.css'
 // 组件
 import '@/components'
 
-// svg 图标
-import '@/assets/svg-icons'
-
 // 功能插件
 import pluginOpen from '@/plugin/open'
 
 export default {
   async install(Vue, options) {
+    // 导入组件
+    require('@careyshop/stats')
+
     // 设置为 false 以阻止 vue 在启动时生成生产提示。
     Vue.config.productionTip = false
     // 当前环境
