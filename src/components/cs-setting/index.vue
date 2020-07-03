@@ -76,6 +76,7 @@ export default {
   },
   methods: {
     openDialog() {
+      // todo 读取配置
     },
     addVariable() {
       this.form.variable.push({
