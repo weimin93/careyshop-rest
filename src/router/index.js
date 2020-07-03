@@ -46,6 +46,12 @@ const router = new VueRouter({
           name: 'History',
           meta: { title: '历史记录' },
           component: () => import('@/views/History')
+        },
+        {
+          path: '/help',
+          name: 'Help',
+          meta: { title: '帮助' },
+          component: () => import('@/views/Help')
         }
       ]
     },
