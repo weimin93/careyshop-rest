@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="header">
     <div flex-box="0" class="header-logo cs-pl-10">
       <a href="/">
         <img src="~@/assets/image/logo@2x.png" height="60" alt="logo">
@@ -29,6 +29,11 @@ export default {
 </script>
 
 <style scoped>
+  .header {
+    border-radius: 0 0 4px 4px;
+    overflow: hidden;
+  }
+
   .header-logo {
     float: left;
     height: 60px;
