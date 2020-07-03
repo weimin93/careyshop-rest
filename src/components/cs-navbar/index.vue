@@ -1,9 +1,8 @@
 <template>
   <div class="header">
     <div flex-box="0" class="header-logo cs-pl-10">
-      <a href="/">
-        <img src="~@/assets/image/logo@2x.png" height="60" alt="logo">
-      </a>
+      <a href="/"><img src="~@/assets/image/logo@2x.png" height="60" alt="logo"></a>
+      <span class="cs-pl">Restful API 接口调试 <span style="font-size: 12px;">v{{$version}}</span></span>
     </div>
     <el-menu
       flex-box="1"
@@ -18,13 +17,23 @@
       <el-menu-item index="/favorites">收藏夹</el-menu-item>
       <el-menu-item index="/history">历史记录</el-menu-item>
       <el-menu-item index="/help">帮助</el-menu-item>
+      <el-menu-item @click="openSetting">设置</el-menu-item>
     </el-menu>
+
+    <cs-setting ref="setting"></cs-setting>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'cs-navbar'
+  name: 'cs-navbar',
+  methods: {
+    openSetting() {
+      this.$nextTick(() => {
+        this.$refs.setting.dialog = true
+      })
+    }
+  }
 }
 </script>
 
@@ -40,6 +49,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    color: #FFF;
     background: #2C3643;
   }
 
