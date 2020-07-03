@@ -21,14 +21,14 @@
         <div class="variable">
           <el-form-item
             v-for="(value, index) in form.variable"
-            :label="'变量' + index"
+            :label="'变量' + (index + 1)"
             :key="index">
             <el-row>
-              <el-col :span="6">
+              <el-col :span="7">
                 <el-input v-model="value.name" placeholder="变量名" clearable/>
               </el-col>
 
-              <el-col :span="15" style="padding: 0 10px;">
+              <el-col :span="14" style="padding: 0 10px;">
                 <el-input v-model="value.value" placeholder="变量值" clearable/>
               </el-col>
 
