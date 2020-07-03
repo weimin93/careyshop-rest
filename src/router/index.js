@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import util from '@/utils/util'
+import Layout from '@/views/Layout'
 
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
@@ -25,20 +26,28 @@ const router = new VueRouter({
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: () => import('@/views/Home')
-    },
-    {
-      path: '/favorites',
-      name: 'Favorites',
-      meta: { title: '收藏夹' },
-      component: () => import('@/views/Favorites')
-    },
-    {
-      path: '/history',
-      name: 'History',
-      meta: { title: '历史记录' },
-      component: () => import('@/views/History')
+      redirect: { name: 'Index' },
+      component: Layout,
+      children: [
+        {
+          path: '/index',
+          name: 'Index',
+          meta: { title: '首页' },
+          component: () => import('@/views/Index')
+        },
+        {
+          path: '/favorites',
+          name: 'Favorites',
+          meta: { title: '收藏夹' },
+          component: () => import('@/views/Favorites')
+        },
+        {
+          path: '/history',
+          name: 'History',
+          meta: { title: '历史记录' },
+          component: () => import('@/views/History')
+        }
+      ]
     },
     {
       path: '*',

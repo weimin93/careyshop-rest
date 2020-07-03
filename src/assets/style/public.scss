@@ -6,9 +6,11 @@ $prefix: cs;
 // 填满父元素
 // 组要父元素 position: relative | absolute;
 %full {
-  width: 75%;
-  max-width: 1200px;
-  margin: 0 auto;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 
 // flex 垂直水平居中
