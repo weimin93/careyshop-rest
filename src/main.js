@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import i18n from './i18n'
 import App from './App.vue'
 
 import store from '@/store'
@@ -12,6 +13,7 @@ Vue.use(careyshop)
 new Vue({
   router,
   store,
+  i18n,
   render: h => h(App),
   mounted() {
     // 展示系统信息

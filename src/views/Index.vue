@@ -1,7 +1,15 @@
 <template>
   <div>
     <cs-card title="请求">
-      <div>this is url</div>
+      <el-form ref="request" :model="request" label-width="90px">
+        <el-form-item label="地址">
+          <el-input v-model="request.url"></el-input>
+        </el-form-item>
+
+        <el-form-item label="参数">
+          <el-input v-model="request.url"></el-input>
+        </el-form-item>
+      </el-form>
     </cs-card>
 
     <cs-card title="请求头" :expanded="true">
@@ -27,6 +35,12 @@ export default {
   name: 'Index',
   components: {
     csCard: () => import('@/components/cs-card')
+  },
+  data() {
+    return {
+      // 请求表单
+      request: {}
+    }
   }
 }
 </script>

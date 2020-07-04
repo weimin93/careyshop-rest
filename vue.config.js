@@ -100,5 +100,14 @@ module.exports = {
         .plugin('webpack-bundle-analyzer')
         .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
     }
+  },
+  // i18n
+  pluginOptions: {
+    i18n: {
+      locale: 'en',
+      fallbackLocale: 'zh-chs',
+      localeDir: 'locales',
+      enableInSFC: true
+    }
   }
 }

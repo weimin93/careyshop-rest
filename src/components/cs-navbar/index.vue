@@ -13,16 +13,23 @@
       text-color="#CCCCCC"
       active-text-color="#FFD04B"
       :router="true">
-      <el-menu-item index="/index">首页</el-menu-item>
-      <el-submenu index="/favorites">
-        <template slot="title">收藏夹</template>
-        <el-menu-item index="/favorites">收藏夹</el-menu-item>
-        <el-menu-item>导出数据</el-menu-item>
-        <el-menu-item>导入数据</el-menu-item>
+      <el-menu-item index="/index">{{$t('home')}}</el-menu-item>
+      <el-submenu index="favorites">
+        <template slot="title">{{$t('favorites')}}</template>
+        <el-menu-item index="/favorites">{{$t('favorites')}}</el-menu-item>
+        <el-menu-item>{{$t('import favorites')}}</el-menu-item>
+        <el-menu-item>{{$t('export favorites')}}</el-menu-item>
       </el-submenu>
-      <el-menu-item index="/history">历史记录</el-menu-item>
-      <el-menu-item index="/help">帮助</el-menu-item>
-      <el-menu-item @click="openSetting">设置</el-menu-item>
+      <el-menu-item index="/history">{{$t('history')}}</el-menu-item>
+      <el-menu-item index="/help">{{$t('help')}}</el-menu-item>
+      <el-menu-item @click="openSetting">{{$t('setting')}}</el-menu-item>
+      <el-submenu index="languages">
+        <template slot="title">{{$t('languages')}}</template>
+        <el-menu-item
+          v-for="language in $languages"
+          :key="language.value"
+          @click="setLanguage(language.value)">{{language.label}}</el-menu-item>
+      </el-submenu>
     </el-menu>
 
     <cs-setting ref="setting"></cs-setting>
@@ -37,6 +44,9 @@ export default {
       this.$nextTick(() => {
         this.$refs.setting.dialog = true
       })
+    },
+    setLanguage(value) {
+      this.$i18n.locale = value
     }
   }
 }

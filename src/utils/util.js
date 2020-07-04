@@ -1,7 +1,9 @@
+import cookies from './util.cookies'
 import db from './util.db'
 import log from './util.log'
 
 let util = {
+  cookies,
   db,
   log
 }

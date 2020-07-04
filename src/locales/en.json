@@ -1,0 +1,19 @@
+{
+  "_element": "en",
+  "_name": "English",
+  "home": "Home",
+  "favorites": "Favorites",
+  "import favorites": "Import Favorites",
+  "export favorites": "Export Favorites",
+  "history": "History",
+  "help": "Help",
+  "setting": "Setting",
+  "variable": "Variable",
+  "appkey": "Please enter the appKey",
+  "appsecret": "Please enter the appSecret",
+  "key": "key",
+  "value": "value",
+  "add variable": "Add New Variable",
+  "save": "Save",
+  "languages": "Languages"
+}
