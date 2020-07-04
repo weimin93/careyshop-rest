@@ -71,26 +71,6 @@ module.exports = {
       .when(process.env.NODE_ENV === 'development',
         config => config.devtool('cheap-source-map')
       )
-    // svg
-    const svgRule = config.module.rule('svg')
-    svgRule.uses.clear()
-    svgRule
-      .include
-      .add(resolve('src/assets/svg-icons/icons'))
-      .end()
-      .use('svg-sprite-loader')
-      .loader('svg-sprite-loader')
-      .options({
-        symbolId: 'cs-[name]'
-      })
-      .end()
-    // image exclude
-    const imagesRule = config.module.rule('images')
-    imagesRule
-      .test(/\.(png|jpe?g|gif|webp|svg)(\?.*)?$/)
-      .exclude
-      .add(resolve('src/assets/svg-icons/icons'))
-      .end()
     // 重新设置 alias
     config.resolve.alias
       .set('@static', resolve('public/static'))
