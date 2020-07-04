@@ -18,12 +18,6 @@
           <el-input v-model="form.appSecret" placeholder="请输入密钥" clearable/>
         </el-form-item>
 
-        <el-form-item label="用户组">
-          <el-radio v-model="form.group" label="admin">管理组</el-radio>
-          <el-radio v-model="form.group" label="client">顾客组</el-radio>
-          <el-radio v-model="form.group" label="guest">游客</el-radio>
-        </el-form-item>
-
         <div class="variable">
           <el-form-item
             v-for="(value, index) in form.variable"
@@ -74,7 +68,6 @@ export default {
       form: {
         appKey: '',
         appSecret: '',
-        group: 'admin',
         variable: []
       }
     }

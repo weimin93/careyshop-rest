@@ -1,5 +1,5 @@
 <template>
-  <el-card shadow="never" :class="{'hide-body': isShow}">
+  <el-card shadow="never" :class="{'hide-body': isShow, 'cs-mb': true}">
     <div slot="header" class="clearfix">
       <span>{{title}}</span>
       <i :class="`el-icon-arrow-${isShow ? 'down' : 'right'} expanded`" @click="isShow = !isShow"/>
@@ -27,7 +27,8 @@ export default {
     expanded: {
       handler(val) {
         this.isShow = val
-      }
+      },
+      immediate: true
     }
   },
   data() {
