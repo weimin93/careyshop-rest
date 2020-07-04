@@ -26,11 +26,11 @@
       </el-form>
     </cs-card>
 
-    <cs-card :title="$t('headers')" :expanded="true">
+    <cs-card :title="$t('headers')" :expanded="false">
       <div>this is headers</div>
     </cs-card>
 
-    <cs-card :title="$t('login')" :expanded="true">
+    <cs-card :title="$t('login')" :expanded="false">
       <div>this is log in</div>
     </cs-card>
 

@@ -7,15 +7,21 @@
     <el-main>
       <router-view/>
     </el-main>
+
+    <el-footer>
+      <cs-footer/>
+    </el-footer>
   </el-container>
 </template>
 
 <script>
 import CsNavbar from '@/components/cs-navbar'
+import CsFooter from '@/components/cs-footer'
 
 export default {
   name: 'Layout',
   components: {
+    CsFooter,
     CsNavbar
   }
 }
