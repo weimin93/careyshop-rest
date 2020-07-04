@@ -15,5 +15,12 @@
   "value": "value",
   "add variable": "Add New Variable",
   "save": "Save",
-  "languages": "Languages"
+  "languages": "Languages",
+  "request": "Request",
+  "url": "URL",
+  "payload": "Payload",
+  "headers": "Headers",
+  "login": "Log In",
+  "send request": "Send Request",
+  "response": "Response"
 }

@@ -15,5 +15,12 @@
   "value": "变量值",
   "add variable": "新增变量",
   "save": "保存",
-  "languages": "选择语言"
+  "languages": "选择语言",
+  "request": "请求",
+  "url": "请求地址",
+  "payload": "请求附载",
+  "headers": "请求头",
+  "login": "登录",
+  "send request": "发送请求",
+  "response": "响应"
 }
