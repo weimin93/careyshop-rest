@@ -32,7 +32,6 @@ const router = new VueRouter({
         {
           path: '/index',
           name: 'Index',
-          meta: { title: '首页' },
           component: () => import('@/views/Index')
         },
         {
@@ -44,7 +43,7 @@ const router = new VueRouter({
         {
           path: '/history',
           name: 'History',
-          meta: { title: '历史记录' },
+          meta: { title: '历史' },
           component: () => import('@/views/History')
         },
         {

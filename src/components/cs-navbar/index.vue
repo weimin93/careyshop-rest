@@ -16,7 +16,8 @@
       <el-menu-item index="/index">{{$t('home')}}</el-menu-item>
       <el-submenu index="favorites">
         <template slot="title">{{$t('favorites')}}</template>
-        <el-menu-item index="/favorites">{{$t('favorites')}}</el-menu-item>
+        <el-menu-item index="/favorites">{{$t('manage favorites')}}</el-menu-item>
+        <el-menu-item>{{$t('save current request')}}</el-menu-item>
         <el-menu-item>{{$t('import favorites')}}</el-menu-item>
         <el-menu-item>{{$t('export favorites')}}</el-menu-item>
       </el-submenu>

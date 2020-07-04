@@ -1,6 +1,6 @@
 <template>
   <div>
-    <cs-card :title="$t('request')">
+    <cs-card :title="$t('request')" class="request">
       <el-form ref="request" :model="request" label-width="90px">
         <el-form-item :label="$t('url')">
           <el-input
@@ -73,21 +73,27 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .request-url {
-    /deep/ .el-select .el-input {
-      width: 130px;
+  .request {
+    /deep/ .el-card__body {
+      padding: 20px 20px 0 20px;
     }
 
-    /deep/ .is-disabled {
-      border-color: #FFF;
-    }
+    .request-url {
+      /deep/ .el-select .el-input {
+        width: 130px;
+      }
 
-    /deep/ .el-input-group__append {
-      background-color: #FFF;
-    }
+      /deep/ .is-disabled {
+        border-color: #FFF;
+      }
 
-    /deep/ .el-input-group__prepend {
-      background-color: #FFF;
+      /deep/ .el-input-group__append {
+        background-color: #FFF;
+      }
+
+      /deep/ .el-input-group__prepend {
+        background-color: #FFF;
+      }
     }
   }
 </style>
