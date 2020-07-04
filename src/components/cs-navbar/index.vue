@@ -14,7 +14,12 @@
       active-text-color="#FFD04B"
       :router="true">
       <el-menu-item index="/index">首页</el-menu-item>
-      <el-menu-item index="/favorites">收藏夹</el-menu-item>
+      <el-submenu index="/favorites">
+        <template slot="title">收藏夹</template>
+        <el-menu-item index="/favorites">收藏夹</el-menu-item>
+        <el-menu-item>导出数据</el-menu-item>
+        <el-menu-item>导入数据</el-menu-item>
+      </el-submenu>
       <el-menu-item index="/history">历史记录</el-menu-item>
       <el-menu-item index="/help">帮助</el-menu-item>
       <el-menu-item @click="openSetting">设置</el-menu-item>

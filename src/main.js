@@ -16,5 +16,7 @@ new Vue({
   mounted() {
     // 展示系统信息
     this.$store.commit('careyshop/releases/versionShow')
+    // 加载设置数据
+    this.$store.dispatch('careyshop/setting/load').then(() => {})
   }
 }).$mount('#app')

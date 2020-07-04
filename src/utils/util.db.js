@@ -27,7 +27,7 @@ export function pathInit({
   validator = () => true,
   defaultValue = ''
 }) {
-  const currentPath = `${dbName}.${path ? `.${path}` : ''}`
+  const currentPath = `${dbName}${path ? `.${path}` : ''}`
   const value = db.get(currentPath).value()
   if (!(value !== undefined && validator(value))) {
     db

@@ -45,15 +45,22 @@
       </el-form>
 
       <div class="setting-drawer__footer">
-        <el-button type="primary" @click="() => {}">保 存</el-button>
+        <el-button type="primary" @click="saveData" :loading="loading">保 存</el-button>
       </div>
     </div>
   </el-drawer>
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+
 export default {
   name: 'cs-setting',
+  computed: {
+    ...mapState('careyshop/setting', [
+      'setting'
+    ])
+  },
   data() {
     return {
       dialog: false,
@@ -61,22 +68,26 @@ export default {
       form: {
         appKey: '',
         appSecret: '',
-        variable: [
-          {
-            name: '{{host}}',
-            value: 'http://api.careyshop.cn/api/v1/'
-          },
-          {
-            name: '{{host}}',
-            value: 'http://api.careyshop.cn/api/v1/'
-          }
-        ]
+        variable: []
       }
     }
   },
   methods: {
+    ...mapActions('careyshop/setting', [
+      'set'
+    ]),
     openDialog() {
-      // todo 读取配置
+      this.form = { ...this.setting }
+    },
+    saveData() {
+      this.loading = true
+      this.$nextTick(() => {
+        this.set(this.form)
+          .finally(() => {
+            this.loading = false
+            this.$refs.drawer.closeDrawer()
+          })
+      })
     },
     addVariable() {
       this.form.variable.push({
