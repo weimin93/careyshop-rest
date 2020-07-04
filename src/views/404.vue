@@ -8,7 +8,7 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped lang="scss">
   .page {
     background: $color-text-main;
     background-blend-mode: multiply, multiply;

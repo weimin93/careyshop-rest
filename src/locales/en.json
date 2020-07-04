@@ -1,6 +1,7 @@
 {
   "_element": "en",
   "_name": "English",
+  "_title": "Interface Debugging",
   "home": "Home",
   "favorites": "Favorites",
   "import favorites": "Import Favorites",
@@ -22,5 +23,8 @@
   "headers": "Headers",
   "login": "Log In",
   "send request": "Send Request",
-  "response": "Response"
+  "response": "Response",
+  "add favorites": "add to favorites",
+  "get docs": "get help documentation",
+  "get url": "get the interface address from the menu"
 }

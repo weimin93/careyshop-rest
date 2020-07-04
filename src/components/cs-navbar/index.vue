@@ -2,7 +2,7 @@
   <div class="header">
     <div flex-box="0" class="header-logo cs-pl-10">
       <a href="/"><img src="~@/assets/image/logo@2x.png" height="60" alt="logo"></a>
-      <span class="cs-pl">Restful API 接口调试 <span style="font-size: 12px;">v{{$version}}</span></span>
+      <span class="cs-pl">Restful API {{$t('_title')}} <span style="font-size: 12px;">v{{$version}}</span></span>
     </div>
     <el-menu
       flex-box="1"
