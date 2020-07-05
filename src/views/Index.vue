@@ -211,7 +211,7 @@ export default {
 
   .login-code {
     /deep/ input {
-      width: 100px;
+      width: 80px;
     }
 
     /deep/ .el-input-group__append {
