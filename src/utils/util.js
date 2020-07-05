@@ -163,4 +163,20 @@ util.checkUrl = (url) => {
   return url
 }
 
+/**
+ * 变量替换
+ * @param value
+ * @param variable
+ * @returns {*}
+ */
+util.settingReplace = (value, variable) => {
+  if (variable) {
+    variable.forEach(val => {
+      value = value.replace(val.name, val.value)
+    })
+  }
+
+  return value
+}
+
 export default util

@@ -10,6 +10,10 @@
     @open="openDialog">
     <div class="setting-drawer__content">
       <el-form :model="form" label-position="left" label-width="105px">
+        <el-form-item label="API_BASE">
+          <el-input v-model="form.apiBase" :placeholder="$t('apibase')" clearable/>
+        </el-form-item>
+
         <el-form-item label="APP_KEY">
           <el-input v-model="form.appKey" :placeholder="$t('appkey')" clearable/>
         </el-form-item>
@@ -66,6 +70,7 @@ export default {
       dialog: false,
       loading: false,
       form: {
+        apiBase: '',
         appKey: '',
         appSecret: '',
         variable: []

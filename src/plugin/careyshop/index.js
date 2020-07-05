@@ -10,6 +10,7 @@ import '@/components'
 
 // 功能插件
 import pluginOpen from '@/plugin/open'
+import pluginAxios from '@/plugin/axios'
 
 export default {
   async install(Vue, options) {
@@ -32,5 +33,6 @@ export default {
 
     // 插件
     Vue.use(pluginOpen)
+    Vue.use(pluginAxios)
   }
 }

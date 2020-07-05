@@ -12,6 +12,7 @@
   "help": "Help",
   "setting": "Setting",
   "variable": "Variable",
+  "apibase": "Please enter the call address, support variables",
   "appkey": "Please enter the appKey",
   "appsecret": "Please enter the appSecret",
   "key": "key",
