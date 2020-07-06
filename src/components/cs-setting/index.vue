@@ -14,16 +14,16 @@
           <el-input v-model="form.apiBase" :placeholder="$t('apibase')" clearable/>
         </el-form-item>
 
+        <el-form-item label="API_URL">
+          <el-input v-model="form.apiURL" :placeholder="$t('apiurl')" clearable/>
+        </el-form-item>
+
         <el-form-item label="APP_KEY">
           <el-input v-model="form.appKey" :placeholder="$t('appkey')" clearable/>
         </el-form-item>
 
         <el-form-item label="APP_SECRET">
           <el-input v-model="form.appSecret" :placeholder="$t('appsecret')" clearable/>
-        </el-form-item>
-
-        <el-form-item label="API_URL">
-          <el-input v-model="form.apiURL" :placeholder="$t('apiurl')" clearable/>
         </el-form-item>
 
         <div class="variable">

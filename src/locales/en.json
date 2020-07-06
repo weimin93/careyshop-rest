@@ -40,5 +40,8 @@
   "password enter": "Please enter the password",
   "admin group": "Admin Group",
   "client group": "Client Group",
-  "guest": "Guest"
+  "guest": "Guest",
+  "cascader placeholder": "Support search, case sensitive",
+  "cascader confirm": "Whether to fill in the request address?",
+  "warning": "Warning"
 }

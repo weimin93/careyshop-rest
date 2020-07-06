@@ -13,7 +13,7 @@
       :options="menuData"
       :props="cascaderProps"
       :show-all-levels="false"
-      placeholder="支持搜索，区分大小写"
+      :placeholder="$t('cascader placeholder')"
       style="width: 100%;"
       ref="cascader"
       filterable
@@ -63,9 +63,7 @@ export default {
       })
     },
     handleChange() {
-      this.$confirm('是否将当前接口地址填充到请求地址？', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+      this.$confirm(this.$t('cascader confirm'), this.$t('warning'), {
         type: 'warning'
       })
         .then(() => {
