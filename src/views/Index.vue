@@ -11,7 +11,7 @@
             <template slot="prepend">
               <el-button :title="$t('add favorites')" :disabled="!request.url" icon="el-icon-star-on" size="mini"/>
               <el-button :title="$t('get docs')" :disabled="!request.url" icon="el-icon-s-help" size="mini"/>
-              <el-button :title="$t('get url')" icon="el-icon-menu" size="mini"/>
+              <cs-menu/>
             </template>
 
             <el-select v-model="request.method" slot="append">
@@ -91,7 +91,8 @@ export default {
     ])
   },
   components: {
-    csCard: () => import('@/components/cs-card')
+    csCard: () => import('@/components/cs-card'),
+    csMenu: () => import('@/components/cs-menu')
   },
   data() {
     return {
