@@ -10,7 +10,7 @@
             clearable>
             <template slot="prepend">
               <el-button :title="$t('add favorites')" :disabled="!request.url" icon="el-icon-star-on" size="mini"/>
-              <el-button :title="$t('get docs')" :disabled="!request.url" icon="el-icon-s-help" size="mini"/>
+              <el-button :title="$t('get docs')" :disabled="!request.payload || doc_disabled" @click="getHelpDocs" icon="el-icon-s-help" size="mini"/>
               <cs-menu @confirm="confirmMenu"/>
             </template>
 
@@ -97,6 +97,7 @@ export default {
   data() {
     return {
       is_login: false,
+      doc_disabled: false,
       methodMap: [
         { key: 'get', value: 'GET' },
         { key: 'post', value: 'POST' },
@@ -232,6 +233,44 @@ export default {
     confirmMenu(value) {
       this.request.url = this.setting.apiURL + value.url
       this.request.payload = value.payload
+    },
+    // 获取帮助文档地址
+    getHelpDocs() {
+      let data
+      try {
+        data = JSON.parse(this.request.payload)
+        if (!Object.prototype.hasOwnProperty.call(data, 'method')) {
+          throw new Error(`${this.$t('payload')} ${this.$t('not method')}`)
+        }
+      } catch (e) {
+        this.$message.error(e.message)
+        return
+      }
+
+      this.doc_disabled = true
+      this.$axios({
+        url: 'https://www.careyshop.cn/api/v1/api_docs.html',
+        method: 'post',
+        headers: { 'Content-Type': 'application/json; charset=utf-8' },
+        data: {
+          keyword: data.method,
+          module: this.login.mode === 'admin' ? 'admin' : 'client'
+        }
+      })
+        .then(res => {
+          if (!res.data) {
+            this.$message.warning(this.$t('not help docs'))
+            return
+          }
+
+          this.$open(res.data.host + res.data.url)
+        })
+        .catch(err => {
+          this.$message.error(err.message)
+        })
+        .finally(() => {
+          this.doc_disabled = false
+        })
     }
   }
 }

@@ -43,5 +43,7 @@
   "guest": "游客",
   "cascader placeholder": "支持搜索，区分大小写",
   "cascader confirm": "是否填充到请求地址？",
-  "warning": "提醒"
+  "warning": "提醒",
+  "not help docs": "文档不存在",
+  "not method": "结构中的 method 键名不存在"
 }
