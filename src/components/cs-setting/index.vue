@@ -93,6 +93,7 @@ export default {
           .finally(() => {
             this.loading = false
             this.$refs.drawer.closeDrawer()
+            this.$router.replace('/refresh')
           })
       })
     },

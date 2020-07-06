@@ -51,6 +51,17 @@ const router = new VueRouter({
           name: 'Help',
           meta: { title: '帮助' },
           component: () => import('@/views/Help')
+        },
+        {
+          path: 'refresh',
+          name: 'refresh',
+          hidden: true,
+          component: {
+            beforeRouteEnter(to, from, next) {
+              next(instance => instance.$router.replace(from.fullPath))
+            },
+            render: h => h()
+          }
         }
       ]
     },
