@@ -30,22 +30,22 @@
       <div>this is headers</div>
     </cs-card>
 
-    <cs-card :title="$t('login')" :expanded="false" class="cs-card">
+    <cs-card :title="getLoginInfo()" :expanded="false" class="cs-card">
       <el-form :inline="true" :model="login">
-        <el-form-item label="账号">
-          <el-input v-model="login.username" placeholder="请输入账号" auto-complete="off" clearable>
+        <el-form-item :label="$t('username')">
+          <el-input v-model="login.username" :placeholder="$t('username enter')" auto-complete="off" :disabled="is_login" clearable>
             <i slot="prefix" class="el-input__icon el-icon-user"/>
           </el-input>
         </el-form-item>
 
-        <el-form-item label="密码">
-          <el-input v-model="login.password" placeholder="请输入密码" auto-complete="off" show-password clearable>
+        <el-form-item :label="$t('password')">
+          <el-input v-model="login.password" :placeholder="$t('password enter')" auto-complete="off" :disabled="is_login" show-password clearable>
             <i slot="prefix" class="el-input__icon el-icon-key"/>
           </el-input>
         </el-form-item>
 
-        <el-form-item v-if="captcha.captcha" label="验证码">
-          <el-input v-model="login.captcha" class="login-code" auto-complete="off" maxlength="4" clearable>
+        <el-form-item v-if="captcha.captcha" :label="$t('captcha')">
+          <el-input v-model="login.login_code" class="login-code" auto-complete="off" maxlength="4" clearable>
             <template slot="append">
               <img :src="captcha.url" class="cs-fcr" height="28px" @click="refreshCode" alt=""/>
             </template>
@@ -53,19 +53,15 @@
         </el-form-item>
 
         <el-form-item>
-          <el-dropdown v-if="isLogin">
-            <el-button type="primary">登录<i class="el-icon-arrow-down el-icon--right"/></el-button>
+          <el-dropdown v-if="!is_login" @command="loginCommand">
+            <el-button type="primary" :loading="login.loading">{{$t('login')}}<i class="el-icon-arrow-down el-icon--right"/></el-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>管理组</el-dropdown-item>
-              <el-dropdown-item>顾客组</el-dropdown-item>
+              <el-dropdown-item command="admin">{{$t('admin group')}}</el-dropdown-item>
+              <el-dropdown-item command="user">{{$t('client group')}}</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
 
-          <el-button v-else type="primary">注销</el-button>
-        </el-form-item>
-
-        <el-form-item class="cs-fr">
-          <span>当前身份：游客</span>
+          <el-button v-else type="success" :loading="login.loading" @click="logoutUser">{{$t('logout')}}</el-button>
         </el-form-item>
       </el-form>
     </cs-card>
@@ -82,28 +78,24 @@
 
 <script>
 import { mapState } from 'vuex'
-import { getAppCaptcha } from '@/api/app'
 import util from '@/utils/util'
+import { getAppCaptcha } from '@/api/app'
+import { loginAdminUser, logoutAdminUser } from '@/api/admin'
+import { loginClientUser, logoutClientUser } from '@/api/client'
 
 export default {
   name: 'Index',
   computed: {
     ...mapState('careyshop/setting', [
       'setting'
-    ]),
-    is_captcha() {
-      const { apiBase, appKey } = this.setting
-      return {
-        apiBase,
-        appKey
-      }
-    }
+    ])
   },
   components: {
     csCard: () => import('@/components/cs-card')
   },
   data() {
     return {
+      is_login: false,
       methodMap: [
         { key: 'get', value: 'GET' },
         { key: 'post', value: 'POST' },
@@ -122,63 +114,120 @@ export default {
       // 是否需要验证码
       captcha: {
         captcha: false,
-        session_id: '',
         url: ''
       },
       // 账号登录表单
       login: {
+        mode: '',
+        loading: false,
+        username: '',
+        password: '',
+        login_code: '',
+        session_id: ''
       }
     }
   },
   watch: {
-    is_captcha: {
-      handler() {
-        this.setCaptcha()
-      },
-      immediate: true
-    }
   },
   mounted() {
+    this.setLoginInfo()
+    this.setCaptcha()
   },
   methods: {
-    // 检测是否已登录
-    isLogin() {
-      const token = util.cookies.get('token')
-      return !(!token || token === 'undefined')
-    },
     // 设置是否启用验证码
     setCaptcha() {
-      if (this.isLogin()) {
+      if (this.is_login) {
         return
       }
 
-      const { apiBase, appKey } = this.is_captcha
+      const { apiBase, appKey } = this.setting
       if (apiBase && appKey) {
         getAppCaptcha(appKey)
           .then(res => {
             if (res.data.captcha) {
               this.captcha.captcha = true
-              this.captcha.sessionId = res.data.session_id
+              this.login.session_id = res.data.session_id
               this.refreshCode()
             }
           })
       } else {
         this.captcha.captcha = false
-        this.captcha.sessionId = ''
+        this.captcha.session_id = ''
       }
     },
-    // 获取验证码
+    // 刷新验证码
     refreshCode() {
-      const { apiBase } = this.is_captcha
-      if (!apiBase) {
+      if (!this.setting.apiBase) {
         return
       }
 
-      let url = util.settingReplace(apiBase, this.setting.variable)
+      let url = util.settingReplace(this.setting.apiBase, this.setting.variable)
       url += '/v1/app.html?'
-      url += `method=image.app.captcha&session_id=${this.captcha.sessionId}&t=${Math.random()}`
+      url += `method=image.app.captcha&session_id=${this.login.session_id}&t=${Math.random()}`
 
       this.captcha.url = url
+      this.login.login_code = ''
+    },
+    // 账号登录
+    loginCommand(command) {
+      this.login.loading = true
+      const login = command === 'admin' ? loginAdminUser : loginClientUser
+
+      login({
+        ...this.login,
+        appkey: this.setting.appKey
+      })
+        .then(res => {
+          this.is_login = true
+          this.login.mode = command
+          this.login.password = ''
+          this.captcha.captcha = false
+
+          const cookieSetting = { expires: 365 }
+          util.cookies.set('mode', command, cookieSetting)
+          util.cookies.set('name', res.data[command].username, cookieSetting)
+          util.cookies.set('token', res.data.token.token, cookieSetting)
+        })
+        .catch(() => {
+          this.refreshCode()
+        })
+        .finally(() => {
+          this.login.loading = false
+        })
+    },
+    // 注销账号
+    logoutUser() {
+      this.login.loading = true
+      const logout = this.login.mode === 'admin' ? logoutAdminUser : logoutClientUser
+
+      logout()
+        .finally(() => {
+          this.login.mode = ''
+          this.login.loading = false
+          this.login.username = ''
+          this.is_login = false
+
+          util.cookies.remove('mode')
+          util.cookies.remove('name')
+          util.cookies.remove('token')
+
+          this.setCaptcha()
+        })
+    },
+    // 设置账号信息
+    setLoginInfo() {
+      this.is_login = Boolean(util.cookies.get('token'))
+      this.login.mode = util.cookies.get('mode')
+      this.login.username = util.cookies.get('name')
+    },
+    // 获取登录状态
+    getLoginInfo() {
+      let status = this.$t('guest')
+      if (this.is_login) {
+        status = this.login.mode === 'admin' ? this.$t('admin group') : this.$t('client group')
+      }
+
+      return `${this.$t('account')} (${status})`
     }
   }
 }
@@ -211,7 +260,7 @@ export default {
 
   .login-code {
     /deep/ input {
-      width: 80px;
+      width: 95px;
     }
 
     /deep/ .el-input-group__append {

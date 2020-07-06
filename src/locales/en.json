@@ -24,10 +24,20 @@
   "url": "URL",
   "payload": "Payload",
   "headers": "Headers",
+  "account": "Account",
   "login": "Log In",
+  "logout": "Log Out",
   "send request": "Send Request",
   "response": "Response",
   "add favorites": "add to favorites",
   "get docs": "get help documentation",
-  "get url": "get the interface address from the menu"
+  "get url": "get the interface address from the menu",
+  "username": "Username",
+  "password": "Password",
+  "captcha": "Captcha",
+  "username enter": "Please enter the username",
+  "password enter": "Please enter the password",
+  "admin group": "Admin Group",
+  "client group": "Client Group",
+  "guest": "Guest"
 }

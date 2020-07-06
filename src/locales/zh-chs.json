@@ -24,10 +24,20 @@
   "url": "请求地址",
   "payload": "请求附载",
   "headers": "请求头",
+  "account": "认证",
   "login": "登录",
+  "logout": "注销",
   "send request": "发送请求",
   "response": "响应",
   "add favorites": "添加到收藏夹",
   "get docs": "获取帮助文档",
-  "get url": "从菜单中获取接口地址"
+  "get url": "从菜单中获取接口地址",
+  "username": "账号",
+  "password": "密码",
+  "captcha": "验证码",
+  "username enter": "请输入账号",
+  "password enter": "请输入密码",
+  "admin group": "管理组",
+  "client group": "顾客组",
+  "guest": "游客"
 }
