@@ -228,7 +228,7 @@ export default {
 
       return `${this.$t('account')} (${status})`
     },
-    // 确认填入菜单
+    // 确认填充菜单
     confirmMenu(value) {
       this.request.url = this.setting.apiURL + value.url
       this.request.payload = value.payload
