@@ -13,6 +13,7 @@
   "setting": "Setting",
   "variable": "Variable",
   "apibase": "Please enter the call address, support variables",
+  "apiurl": "Please enter the actual API request address",
   "appkey": "Please enter the appKey",
   "appsecret": "Please enter the appSecret",
   "key": "key",

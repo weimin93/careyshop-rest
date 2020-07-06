@@ -11,7 +11,7 @@
             <template slot="prepend">
               <el-button :title="$t('add favorites')" :disabled="!request.url" icon="el-icon-star-on" size="mini"/>
               <el-button :title="$t('get docs')" :disabled="!request.url" icon="el-icon-s-help" size="mini"/>
-              <cs-menu/>
+              <cs-menu @confirm="confirmMenu"/>
             </template>
 
             <el-select v-model="request.method" slot="append">
@@ -128,8 +128,6 @@ export default {
       }
     }
   },
-  watch: {
-  },
   mounted() {
     this.setLoginInfo()
     this.setCaptcha()
@@ -229,6 +227,11 @@ export default {
       }
 
       return `${this.$t('account')} (${status})`
+    },
+    // 确认填入菜单
+    confirmMenu(value) {
+      this.request.url = this.setting.apiURL + value.url
+      this.request.payload = value.payload
     }
   }
 }

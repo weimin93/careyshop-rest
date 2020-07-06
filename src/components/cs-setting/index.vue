@@ -22,6 +22,10 @@
           <el-input v-model="form.appSecret" :placeholder="$t('appsecret')" clearable/>
         </el-form-item>
 
+        <el-form-item label="API_URL">
+          <el-input v-model="form.apiURL" :placeholder="$t('apiurl')" clearable/>
+        </el-form-item>
+
         <div class="variable">
           <el-form-item
             v-for="(value, index) in form.variable"
@@ -73,6 +77,7 @@ export default {
         apiBase: '',
         appKey: '',
         appSecret: '',
+        apiURL: '',
         variable: []
       }
     }
