@@ -30,7 +30,7 @@
       <div>this is headers</div>
     </cs-card>
 
-    <cs-card :title="getLoginInfo()" :expanded="false" class="cs-card">
+    <cs-card :title="getLoginInfo()" :expanded="true" class="cs-card">
       <el-form :inline="true" :model="login">
         <el-form-item :label="$t('username')">
           <el-input v-model="login.username" :placeholder="$t('username enter')" auto-complete="off" :disabled="is_login" clearable>
