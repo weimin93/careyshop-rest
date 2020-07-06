@@ -19,7 +19,7 @@
       filterable
       clearable>
     </el-cascader>
-    <el-button :title="$t('get url')" icon="el-icon-menu" size="mini" slot="reference"/>
+    <el-button :title="$t('get url')" :disabled="disabled" icon="el-icon-menu" size="mini" slot="reference"/>
   </el-popover>
 </template>
 
@@ -32,6 +32,11 @@ export default {
   props: {
     confirm: {
       type: Function
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   data() {

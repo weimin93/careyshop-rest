@@ -1,7 +1,7 @@
 <template>
   <div>
     <cs-card :title="$t('request')" class="request cs-card">
-      <el-form ref="request" :model="request" label-width="90px">
+      <el-form ref="request" :label-width="label_width">
         <el-form-item :label="$t('url')">
           <el-input
             v-model="request.url"
@@ -11,7 +11,7 @@
             <template slot="prepend">
               <el-button :title="$t('add favorites')" :disabled="!request.url" icon="el-icon-star-on" size="mini"/>
               <el-button :title="$t('get docs')" :disabled="!request.payload || doc_disabled" @click="getHelpDocs" icon="el-icon-s-help" size="mini"/>
-              <cs-menu @confirm="confirmMenu"/>
+              <cs-menu :disabled="!setting.apiBase" @confirm="confirmMenu"/>
             </template>
 
             <el-select v-model="request.method" slot="append">
@@ -27,11 +27,48 @@
     </cs-card>
 
     <cs-card :title="$t('headers')" :expanded="false">
-      <div>this is headers</div>
+      <div class="cs-mb" style="display: flex;">
+        <label class="el-form-item__label" style="width: 90px;">{{$t('headers')}}</label>
+        <el-select v-model="headers.headers" style="flex: auto;">
+        </el-select>
+
+        <div class="cs-ml-10">
+          <el-button type="primary">Add Selected Header</el-button>
+          <el-button type="info">Add New Header</el-button>
+        </div>
+      </div>
+<!--      <el-form :inline="true" :label-width="label_width">-->
+<!--        <el-form-item :label="$t('headers')">-->
+<!--          <el-select v-model="headers.headers" style="width: 450px;">-->
+<!--          </el-select>-->
+<!--        </el-form-item>-->
+
+<!--        <el-form-item>-->
+<!--          <el-button type="primary">Add Selected Header</el-button>-->
+<!--          <el-button type="info">Add New Header</el-button>-->
+<!--        </el-form-item>-->
+<!--      </el-form>-->
+
+      <el-table border>
+        <el-table-column
+          prop="name"
+          label="Header Name">
+        </el-table-column>
+
+        <el-table-column
+          prop="value"
+          label="Header Value">
+        </el-table-column>
+
+        <el-table-column
+          label="Actions"
+          width="100">
+        </el-table-column>
+      </el-table>
     </cs-card>
 
     <cs-card :title="getLoginInfo()" :expanded="true" class="cs-card">
-      <el-form :inline="true" :model="login">
+      <el-form :inline="true" :label-width="label_width">
         <el-form-item :label="$t('username')">
           <el-input v-model="login.username" :placeholder="$t('username enter')" auto-complete="off" :disabled="is_login" clearable>
             <i slot="prefix" class="el-input__icon el-icon-user"/>
@@ -98,6 +135,7 @@ export default {
     return {
       is_login: false,
       doc_disabled: false,
+      label_width: '90px',
       methodMap: [
         { key: 'get', value: 'GET' },
         { key: 'post', value: 'POST' },
@@ -126,7 +164,9 @@ export default {
         password: '',
         login_code: '',
         session_id: ''
-      }
+      },
+      // 请求头
+      headers: {}
     }
   },
   mounted() {
