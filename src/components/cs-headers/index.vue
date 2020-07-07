@@ -63,7 +63,7 @@
       width="600px">
       <el-form :model="visibleForm" label-width="80px">
         <el-form-item label="Name">
-          <el-autocomplete v-model="visibleForm.name" placeholder="Content-Type" :fetch-suggestions="querySearch" clearable style="width: 100%;"/>
+          <el-autocomplete v-model="visibleForm.name" suffix-icon="el-icon-arrow-down" placeholder="Content-Type" :fetch-suggestions="querySearch" clearable style="width: 100%;"/>
         </el-form-item>
 
         <el-form-item label="Value">
@@ -119,15 +119,34 @@ export default {
       visible: false,
       visibleForm: {},
       restaurants: [
-        { value: 'Accept' },
-        { value: 'Accept-Language' },
-        { value: 'Authorization' },
-        { value: 'Cache-Control' },
+        { value: 'Cookie' },
+        { value: 'User-Agent' },
         { value: 'Content-Type' },
+        { value: 'Host' },
+        { value: 'Authorization' },
+        { value: 'Referer' },
+        { value: 'Accept' },
+        { value: 'Accept-Charset' },
+        { value: 'Accept-Encoding' },
+        { value: 'Accept-Language' },
+        { value: 'Accept-Ranges' },
+        { value: 'Cache-Control' },
+        { value: 'Connection' },
+        { value: 'Date' },
+        { value: 'Expect' },
         { value: 'From' },
+        { value: 'If-Match' },
+        { value: 'If-Modified-Since' },
+        { value: 'If-None-Match' },
+        { value: 'If-Range' },
+        { value: 'If-Unmodified-Since' },
         { value: 'Max-Forwards' },
         { value: 'Pragma' },
         { value: 'Proxy-Authorization' },
+        { value: 'Range' },
+        { value: 'TE' },
+        { value: 'Upgrade' },
+        { value: 'Via' },
         { value: 'Warning' }
       ],
       select: {},

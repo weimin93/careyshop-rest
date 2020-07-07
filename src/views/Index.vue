@@ -9,8 +9,9 @@
             class="request-url"
             clearable>
             <template slot="prepend">
+              <el-button @click="formatPayload" :title="$t('format')" icon="el-icon-s-open" size="mini"/>
               <el-button :title="$t('add favorites')" :disabled="!request.url" icon="el-icon-star-on" size="mini"/>
-              <el-button :title="$t('get docs')" :disabled="!request.payload || doc_disabled" @click="getHelpDocs" icon="el-icon-s-help" size="mini"/>
+              <el-button @click="getHelpDocs" :title="$t('get docs')" :disabled="!request.payload || doc_disabled" icon="el-icon-s-help" size="mini"/>
               <cs-menu :disabled="!setting.apiBase" @confirm="confirmMenu"/>
             </template>
 
@@ -138,6 +139,17 @@ export default {
     this.setCaptcha()
   },
   methods: {
+    // 格式化代码
+    formatPayload() {
+      if (this.request.payload) {
+        try {
+          let payload = JSON.parse(this.request.payload)
+          this.request.payload = JSON.stringify(payload, null, 4)
+        } catch (e) {
+          this.$message.error(e.message)
+        }
+      }
+    },
     // 设置是否启用验证码
     setCaptcha() {
       if (this.is_login) {
