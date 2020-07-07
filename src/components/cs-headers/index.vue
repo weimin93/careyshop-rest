@@ -24,7 +24,7 @@
         split-button>
         Add Selected Header
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="edit" :disabled="isDropdown">Edit Saved Header</el-dropdown-item>
+          <el-dropdown-item command="set" :disabled="isDropdown">Edit Saved Header</el-dropdown-item>
           <el-dropdown-item command="del" :disabled="isDropdown">Delete Saved Header</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -50,7 +50,7 @@
         <template slot-scope="scope">
           <div class="table-button">
             <el-button @click="delTableRow(scope.$index)" icon="el-icon-delete" size="mini" type="text"/>
-            <el-button icon="el-icon-edit-outline" size="mini" type="text"/>
+            <el-button @click="setTableRow(scope.$index)" icon="el-icon-edit-outline" size="mini" type="text"/>
           </div>
         </template>
       </el-table-column>
@@ -70,7 +70,7 @@
           <el-input v-model="visibleForm.value" placeholder="application/json;charset=utf-8" clearable></el-input>
         </el-form-item>
 
-        <el-form-item v-show="visibleForm.type === 'add'" label="Save">
+        <el-form-item v-show="visibleForm.show" label="Save">
           <el-switch v-model="visibleForm.save"/>
         </el-form-item>
       </el-form>
@@ -157,14 +157,25 @@ export default {
         this.tableData.unshift(this.select)
       }
     },
-    // 从列表中删除指定请求头
+    // 删除列表中的请求头
     delTableRow(index) {
       this.tableData.splice(index, 1)
+    },
+    // 修改列表中的请求头
+    setTableRow(index) {
+      this.visibleForm = {
+        ...this.tableData[index],
+        index: index,
+        type: 'table',
+        show: true
+      }
+
+      this.visible = true
     },
     // 新增自定义请求头
     addDialogHeader() {
       this.$nextTick(() => {
-        this.visibleForm = { type: 'add' }
+        this.visibleForm = { type: 'add', show: true }
         this.visible = true
       })
     },
@@ -175,19 +186,41 @@ export default {
           this.delHeader(this.select.index)
           this.select = {}
           break
+
+        case 'set':
+          this.visibleForm = { ...this.select, type: 'header' }
+          this.visible = true
+          break
       }
     },
     saveHeaders() {
-      if (this.visibleForm.type === 'add') {
-        const { name, value } = this.visibleForm
+      const { type, name, value, key, index } = this.visibleForm
+
+      if (type === 'add') {
         this.tableData.unshift({ name, value })
-
-        if (this.visibleForm.save) {
-          this.addHeader({ name, value })
-        }
-
-        this.visible = false
       }
+
+      if (type === 'header') {
+        this.select = this.visibleForm
+        this.setHeader({
+          key: index,
+          value: { name, value, key }
+        })
+      }
+
+      if (this.visibleForm.type === 'table') {
+        this.$set(this.tableData, index, {
+          ...this.tableData[index],
+          value,
+          name
+        })
+      }
+
+      if (this.visibleForm.save) {
+        this.addHeader({ name, value })
+      }
+
+      this.visible = false
     }
   }
 }
