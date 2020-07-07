@@ -18,7 +18,15 @@ new Vue({
   mounted() {
     // 展示系统信息
     this.$store.commit('careyshop/releases/versionShow')
-    // 加载设置数据
-    this.$store.dispatch('careyshop/setting/load').then(() => {})
+    // 加载数据
+    this.load()
+  },
+  methods: {
+    async load() {
+      // 加载设置数据
+      await this.$store.dispatch('careyshop/setting/load').then(() => {})
+      // 加载自定义请求头
+      await this.$store.dispatch('careyshop/headers/load').then(() => {})
+    }
   }
 }).$mount('#app')

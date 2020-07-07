@@ -27,44 +27,7 @@
     </cs-card>
 
     <cs-card :title="$t('headers')" :expanded="false">
-      <div class="cs-mb" style="display: flex;">
-        <label class="el-form-item__label" style="width: 90px;">{{$t('headers')}}</label>
-        <el-select v-model="headers.headers" style="flex: auto;">
-        </el-select>
-
-        <div class="cs-ml-10">
-          <el-button type="primary">Add Selected Header</el-button>
-          <el-button type="info">Add New Header</el-button>
-        </div>
-      </div>
-<!--      <el-form :inline="true" :label-width="label_width">-->
-<!--        <el-form-item :label="$t('headers')">-->
-<!--          <el-select v-model="headers.headers" style="width: 450px;">-->
-<!--          </el-select>-->
-<!--        </el-form-item>-->
-
-<!--        <el-form-item>-->
-<!--          <el-button type="primary">Add Selected Header</el-button>-->
-<!--          <el-button type="info">Add New Header</el-button>-->
-<!--        </el-form-item>-->
-<!--      </el-form>-->
-
-      <el-table border>
-        <el-table-column
-          prop="name"
-          label="Header Name">
-        </el-table-column>
-
-        <el-table-column
-          prop="value"
-          label="Header Value">
-        </el-table-column>
-
-        <el-table-column
-          label="Actions"
-          width="100">
-        </el-table-column>
-      </el-table>
+      <cs-headers v-model="headers"/>
     </cs-card>
 
     <cs-card :title="getLoginInfo()" :expanded="true" class="cs-card">
@@ -129,7 +92,8 @@ export default {
   },
   components: {
     csCard: () => import('@/components/cs-card'),
-    csMenu: () => import('@/components/cs-menu')
+    csMenu: () => import('@/components/cs-menu'),
+    csHeaders: () => import('@/components/cs-headers')
   },
   data() {
     return {

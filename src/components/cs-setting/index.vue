@@ -98,7 +98,6 @@ export default {
           .finally(() => {
             this.loading = false
             this.$refs.drawer.closeDrawer()
-            location.reload()
           })
       })
     },
