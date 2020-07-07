@@ -20,6 +20,7 @@
   "value": "变量值",
   "add variable": "新增变量",
   "save": "保存",
+  "cancel": "取消",
   "languages": "选择语言",
   "format": "格式化",
   "request": "请求",
@@ -46,5 +47,15 @@
   "cascader confirm": "是否填充到请求地址？",
   "warning": "提醒",
   "not help docs": "文档不存在",
-  "not method": "结构中的 method 键名不存在"
+  "not method": "结构中的 method 键名不存在",
+  "add header": "新增请求头",
+  "add selected header": "添加已选请求头",
+  "edit saved header": "编辑已选请求头",
+  "delete saved header": "删除已选请求头",
+  "header name": "请求头名称",
+  "header value": "请求头数据",
+  "header save": "保存至列表",
+  "actions": "操作",
+  "examples": "常用",
+  "custom": "自定义"
 }

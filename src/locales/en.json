@@ -20,6 +20,7 @@
   "value": "value",
   "add variable": "Add New Variable",
   "save": "Save",
+  "cancel": "Cancel",
   "languages": "Languages",
   "format": "Format",
   "request": "Request",
@@ -46,5 +47,15 @@
   "cascader confirm": "Whether to fill in the request address?",
   "warning": "Warning",
   "not help docs": "Document does not exist",
-  "not method": "The method key name in the structure does not exist"
+  "not method": "The method key name in the structure does not exist",
+  "add header": "Add New Header",
+  "add selected header": "Add Selected Header",
+  "edit saved header": "Edit Saved Header",
+  "delete saved header": "Delete Saved Header",
+  "header name": "Header Name",
+  "header value": "Header Value",
+  "header save": "To Select",
+  "actions": "Actions",
+  "examples": "Examples",
+  "custom": "Custom"
 }

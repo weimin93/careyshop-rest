@@ -22,29 +22,29 @@
         @click="addSelectedHeader"
         @command="selectedCommand"
         split-button>
-        Add Selected Header
+        {{$t('add selected header')}}
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="set" :disabled="isDropdown">Edit Saved Header</el-dropdown-item>
-          <el-dropdown-item command="del" :disabled="isDropdown">Delete Saved Header</el-dropdown-item>
+          <el-dropdown-item command="set" :disabled="isDropdown">{{$t('edit saved header')}}</el-dropdown-item>
+          <el-dropdown-item command="del" :disabled="isDropdown">{{$t('delete saved header')}}</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
 
-      <el-button type="info" @click="addDialogHeader">Add New Header</el-button>
+      <el-button type="info" @click="addDialogHeader">{{$t('add header')}}</el-button>
     </div>
 
     <el-table :data="tableData" border>
       <el-table-column
         prop="name"
-        label="Header Name">
+        :label="$t('header name')">
       </el-table-column>
 
       <el-table-column
         prop="value"
-        label="Header Value">
+        :label="$t('header value')">
       </el-table-column>
 
       <el-table-column
-        label="Actions"
+        :label="$t('actions')"
         align="center"
         width="100">
         <template slot-scope="scope">
@@ -61,23 +61,23 @@
       :visible.sync="visible"
       :close-on-click-modal="false"
       width="600px">
-      <el-form :model="visibleForm" label-width="80px">
-        <el-form-item label="Name">
+      <el-form :model="visibleForm" label-width="100px">
+        <el-form-item :label="$t('header name')">
           <el-autocomplete v-model="visibleForm.name" suffix-icon="el-icon-arrow-down" placeholder="Content-Type" :fetch-suggestions="querySearch" clearable style="width: 100%;"/>
         </el-form-item>
 
-        <el-form-item label="Value">
+        <el-form-item :label="$t('header value')">
           <el-input v-model="visibleForm.value" placeholder="application/json;charset=utf-8" clearable></el-input>
         </el-form-item>
 
-        <el-form-item v-show="visibleForm.show" label="Save">
+        <el-form-item v-show="visibleForm.show" :label="$t('header save')">
           <el-switch v-model="visibleForm.save"/>
         </el-form-item>
       </el-form>
 
       <div slot="footer" class="dialog-footer">
-        <el-button @click="visible = false" size="medium">Cancel</el-button>
-        <el-button @click="saveHeaders" :disabled="!visibleForm.name || !visibleForm.value" type="primary" size="medium">Save</el-button>
+        <el-button @click="visible = false" size="medium">{{$t('cancel')}}</el-button>
+        <el-button @click="saveHeaders" :disabled="!visibleForm.name || !visibleForm.value" type="primary" size="medium">{{$t('save')}}</el-button>
       </div>
     </el-dialog>
   </div>
@@ -95,14 +95,14 @@ export default {
     ]),
     options() {
       let data = [{
-        label: 'Examples',
+        label: this.$t('examples'),
         type: 'examples',
         options: this.examples
       }]
 
       if (this.headers.length > 0) {
         data.unshift({
-          label: 'Custom',
+          label: this.$t('custom'),
           type: 'custom',
           options: this.headers
         })
