@@ -114,6 +114,13 @@ export default {
       return !Object.keys(this.select).length || this.select.type === 'examples'
     }
   },
+  props: {
+    value: {
+      type: Array,
+      required: true,
+      default: () => []
+    }
+  },
   data() {
     return {
       visible: false,
@@ -153,6 +160,11 @@ export default {
       tableData: []
     }
   },
+  watch: {
+    value(value) {
+      this.tableData = value
+    }
+  },
   methods: {
     ...mapActions('careyshop/headers', [
       'addHeader',
@@ -174,11 +186,13 @@ export default {
     addSelectedHeader() {
       if (Object.keys(this.select).length > 0) {
         this.tableData.unshift(this.select)
+        this.$emit('input', this.tableData)
       }
     },
     // 删除列表中的请求头
     delTableRow(index) {
       this.tableData.splice(index, 1)
+      this.$emit('input', this.tableData)
     },
     // 修改列表中的请求头
     setTableRow(index) {
@@ -217,6 +231,7 @@ export default {
 
       if (type === 'add') {
         this.tableData.unshift({ name, value })
+        this.$emit('input', this.tableData)
       }
 
       if (type === 'header') {
@@ -227,12 +242,14 @@ export default {
         })
       }
 
-      if (this.visibleForm.type === 'table') {
+      if (type === 'table') {
         this.$set(this.tableData, index, {
           ...this.tableData[index],
           value,
           name
         })
+
+        this.$emit('input', this.tableData)
       }
 
       if (this.visibleForm.save) {

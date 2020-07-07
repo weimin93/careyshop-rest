@@ -131,7 +131,7 @@ export default {
         session_id: ''
       },
       // 请求头
-      headers: {}
+      headers: []
     }
   },
   mounted() {
