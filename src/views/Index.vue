@@ -67,12 +67,14 @@
       </el-form>
     </cs-card>
 
-    <div class="cs-mb cs-tr">
+    <div class="cs-mb cs-tr" style="display: flex;">
+      <el-progress class="send-progress cs-mr" :text-inside="true" :stroke-width="26" :percentage="percentage"/>
+      <el-button type="danger">{{$t('cancel')}}</el-button>
       <el-button type="primary" :disabled="!request.url">{{$t('send request')}}</el-button>
     </div>
 
     <cs-card :title="$t('response')">
-      <div>this is response</div>
+      <cs-response />
     </cs-card>
   </div>
 </template>
@@ -94,13 +96,15 @@ export default {
   components: {
     csCard: () => import('@/components/cs-card'),
     csMenu: () => import('@/components/cs-menu'),
-    csHeaders: () => import('@/components/cs-headers')
+    csHeaders: () => import('@/components/cs-headers'),
+    csResponse: () => import('@/components/cs-response')
   },
   data() {
     return {
       is_login: false,
       doc_disabled: false,
       label_width: '90px',
+      percentage: 60,
       methodMap: [
         { key: 'get', value: 'GET' },
         { key: 'post', value: 'POST' },
@@ -131,7 +135,9 @@ export default {
         session_id: ''
       },
       // 请求头
-      headers: []
+      headers: [],
+      // 响应
+      response: {}
     }
   },
   mounted() {
@@ -326,5 +332,10 @@ export default {
       padding: 0;
       background-color: #FFF;
     }
+  }
+
+  .send-progress {
+    flex: 1;
+    align-self: center;
   }
 </style>

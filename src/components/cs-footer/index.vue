@@ -21,7 +21,7 @@ export default {
     }
 
     a {
-      color: $color-info;
+      color: $color-info !important;
     }
   }
 </style>
