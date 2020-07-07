@@ -27,7 +27,7 @@
       </el-form>
     </cs-card>
 
-    <cs-card :title="$t('headers')" :expanded="false">
+    <cs-card :title="$t('headers')" :expanded="true">
       <cs-headers v-model="headers"/>
     </cs-card>
 
