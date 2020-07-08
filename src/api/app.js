@@ -1,6 +1,6 @@
 import request from '@/plugin/axios/request'
 
-const url = '/v1/app'
+const url = request.defaults.url ? request.defaults.url + 'app' : 'app'
 
 /**
  * 查询应用验证码状态

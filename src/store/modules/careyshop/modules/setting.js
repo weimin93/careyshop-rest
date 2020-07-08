@@ -31,7 +31,13 @@ export default {
       // store 赋值
       state.setting = await dispatch('careyshop/db/get', {
         path: 'setting',
-        defaultValue: {}
+        defaultValue: {
+          apiURL: '/{{controller}}/{{version}}/',
+          variable: [
+            { name: '{{controller}}', value: 'api' },
+            { name: '{{version}}', value: 'v1' }
+          ]
+        }
       }, { root: true })
     }
   }

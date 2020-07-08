@@ -30,7 +30,7 @@ function getSettingValur(key) {
   const setting = get(store, 'state.careyshop.setting.setting', {})
   let value = setting[key]
 
-  if (setting.variable) {
+  if (value && setting.variable) {
     setting.variable.forEach(val => {
       value = value.replace(val.name, val.value)
     })

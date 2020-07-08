@@ -1,6 +1,6 @@
 import request from '@/plugin/axios/request'
 
-const url = '/v1/user'
+const url = request.defaults.url ? request.defaults.url + 'user' : 'user'
 
 /**
  * 账号登录，并且获取授权码

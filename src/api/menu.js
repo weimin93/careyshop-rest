@@ -1,6 +1,6 @@
 import request from '@/plugin/axios/request'
 
-const url = '/v1/menu'
+const url = request.defaults.url ? request.defaults.url + 'menu' : 'menu'
 
 /**
  * 根据权限获取菜单列表
