@@ -1,8 +1,8 @@
 <template>
-  <el-card shadow="never" :class="{'hide-body': isShow, 'cs-mb': true}">
+  <el-card shadow="never" :class="{'hide-body': isHide, 'cs-mb': true}">
     <div slot="header" class="clearfix">
       <span>{{title}}</span>
-      <i :class="`el-icon-arrow-${isShow ? 'down' : 'right'} expanded`" @click="isShow = !isShow"/>
+      <i :class="`el-icon-arrow-${isHide ? 'down' : 'right'} expanded`" @click="isHide = !isHide"/>
     </div>
     <slot/>
   </el-card>
@@ -26,14 +26,14 @@ export default {
   watch: {
     expanded: {
       handler(val) {
-        this.isShow = val
+        this.isHide = val
       },
       immediate: true
     }
   },
   data() {
     return {
-      isShow: false
+      isHide: undefined
     }
   }
 }

@@ -77,7 +77,7 @@
     </div>
 
     <cs-card :title="$t('response')" :expanded="!sendEnd">
-      <cs-response />
+      <cs-response v-show="!sendLoading"/>
     </cs-card>
   </div>
 </template>
