@@ -104,7 +104,7 @@ export default {
       is_login: false,
       doc_disabled: false,
       label_width: '90px',
-      percentage: 60,
+      percentage: 0,
       methodMap: [
         { key: 'get', value: 'GET' },
         { key: 'post', value: 'POST' },
