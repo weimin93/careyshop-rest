@@ -67,13 +67,16 @@
       </el-form>
     </cs-card>
 
-    <div class="cs-mb cs-tr" style="display: flex;">
-      <el-progress class="send-progress cs-mr" :text-inside="true" :stroke-width="26" :percentage="percentage"/>
-      <el-button type="danger">{{$t('cancel')}}</el-button>
-      <el-button type="primary" :disabled="!request.url">{{$t('send request')}}</el-button>
+    <div class="cs-mb cs-tr" flex>
+      <div class="send-progress cs-mr" flex-box="1">
+        <el-progress v-show="sendLoading" :text-inside="true" :stroke-width="26" :percentage="percentage"/>
+      </div>
+
+      <el-button v-show="sendLoading" @click="cancel" type="danger">{{$t('cancel')}}</el-button>
+      <el-button type="primary" @click="submit" :disabled="!request.url" :loading="sendLoading">{{$t('send request')}}</el-button>
     </div>
 
-    <cs-card :title="$t('response')">
+    <cs-card :title="$t('response')" :expanded="!sendEnd">
       <cs-response />
     </cs-card>
   </div>
@@ -82,12 +85,14 @@
 <script>
 import { mapState } from 'vuex'
 import util from '@/utils/util'
+import sendRequest from './components/mixins/sendRequest'
 import { getAppCaptcha } from '@/api/app'
 import { loginAdminUser, logoutAdminUser } from '@/api/admin'
 import { loginClientUser, logoutClientUser } from '@/api/client'
 
 export default {
   name: 'Index',
+  mixins: [sendRequest],
   computed: {
     ...mapState('careyshop/setting', [
       'setting'
@@ -105,6 +110,8 @@ export default {
       doc_disabled: false,
       label_width: '90px',
       percentage: 0,
+      sendLoading: false,
+      sendEnd: false,
       methodMap: [
         { key: 'get', value: 'GET' },
         { key: 'post', value: 'POST' },
@@ -335,7 +342,6 @@ export default {
   }
 
   .send-progress {
-    flex: 1;
     align-self: center;
   }
 </style>
