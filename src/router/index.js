@@ -58,7 +58,7 @@ const router = new VueRouter({
           hidden: true,
           component: {
             beforeRouteEnter(to, from, next) {
-              next(instance => instance.$router.replace(from.fullPath))
+              next(instance => instance.$router.replace(from.path))
             },
             render: h => h()
           }

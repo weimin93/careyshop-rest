@@ -114,12 +114,6 @@ export default {
         { key: 'head', value: 'HEAD' },
         { key: 'options', value: 'OPTIONS' }
       ],
-      // 请求表单
-      request: {
-        url: '',
-        payload: '',
-        method: 'get'
-      },
       // 是否需要验证码
       captcha: {
         captcha: false,
@@ -133,6 +127,12 @@ export default {
         password: '',
         login_code: '',
         session_id: ''
+      },
+      // 请求表单
+      request: {
+        url: '',
+        payload: '',
+        method: 'get'
       },
       // 请求头
       headers: [],

@@ -98,6 +98,9 @@ export default {
           .finally(() => {
             this.loading = false
             this.$refs.drawer.closeDrawer()
+
+            // 必须刷新页面,否则"request"已实例化无法更新
+            location.reload()
           })
       })
     },

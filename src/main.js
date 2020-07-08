@@ -19,7 +19,7 @@ new Vue({
     // 展示系统信息
     this.$store.commit('careyshop/releases/versionShow')
     // 加载数据
-    this.load()
+    this.load().then(() => {})
   },
   methods: {
     async load() {
