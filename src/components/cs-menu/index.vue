@@ -73,11 +73,11 @@ export default {
       })
         .then(() => {
           const { data } = this.$refs.cascader.getCheckedNodes()[0]
-          const parameter = data.url.split('/').slice(-2)
+          const parameter = data.url.split('/').slice(-3)
 
           let result = {
-            url: parameter[0],
-            payload: JSON.stringify({ method: parameter[1] }, null, 4)
+            url: `/${parameter[0]}/${parameter[1]}`,
+            payload: JSON.stringify({ method: parameter[2] }, null, 4)
           }
 
           this.$emit('confirm', result)

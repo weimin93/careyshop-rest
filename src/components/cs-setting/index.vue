@@ -58,6 +58,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import { cloneDeep } from 'lodash'
 
 export default {
   name: 'cs-setting',
@@ -98,7 +99,7 @@ export default {
     },
     handleOpen() {
       if (Object.keys(this.setting).length > 0) {
-        this.form = { ...this.setting }
+        this.form = cloneDeep(this.setting)
       }
     },
     saveData() {
