@@ -262,6 +262,11 @@ export default {
       this.is_login = Boolean(util.cookies.get('token'))
       this.login.mode = util.cookies.get('mode')
       this.login.username = util.cookies.get('name')
+
+      if (process.env.VUE_APP_ISDEMO === 'true') {
+        this.login.username = 'admin' + Math.floor(Math.random() * (45 - 1 + 1) + 1)
+        this.login.password = 'admin888'
+      }
     },
     // 获取登录状态
     getLoginInfo() {
@@ -274,7 +279,7 @@ export default {
     },
     // 确认填充菜单
     confirmMenu(value) {
-      this.request.url = this.setting.apiURL + value.url
+      this.request.url = this.setting.apiBase + value.url
       this.request.payload = value.payload
     },
     // 获取帮助文档地址
