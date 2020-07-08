@@ -26,6 +26,7 @@
   "request": "Request",
   "url": "URL",
   "payload": "Payload",
+  "params": "Params",
   "headers": "Headers",
   "account": "Account",
   "login": "Log In",

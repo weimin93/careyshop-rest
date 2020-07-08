@@ -15,13 +15,13 @@
               <cs-menu :disabled="!setting.apiBase" @confirm="confirmMenu"/>
             </template>
 
-            <el-select v-model="request.method" slot="append">
+            <el-select v-model="request.method" @change="switchMethod" slot="append">
               <el-option v-for="method in methodMap" :key="method.key" :label="method.value" :value="method.key"/>
             </el-select>
           </el-input>
         </el-form-item>
 
-        <el-form-item :label="$t('payload')">
+        <el-form-item :label="$t(methodName)">
           <el-input v-model="request.payload" placeholder="application/json" type="textarea" :rows="10"></el-input>
         </el-form-item>
       </el-form>
@@ -108,6 +108,7 @@ export default {
     return {
       is_login: false,
       doc_disabled: false,
+      methodName: 'params',
       label_width: '90px',
       percentage: 0,
       sendLoading: false,
@@ -161,6 +162,19 @@ export default {
         } catch (e) {
           this.$message.error(e.message)
         }
+      }
+    },
+    // 切换请求方式
+    switchMethod(value) {
+      switch (value) {
+        case 'put':
+        case 'post':
+        case 'patch':
+          this.methodName = 'payload'
+          break
+
+        default:
+          this.methodName = 'params'
       }
     },
     // 设置是否启用验证码
@@ -269,7 +283,7 @@ export default {
       try {
         data = JSON.parse(this.request.payload)
         if (!Object.prototype.hasOwnProperty.call(data, 'method')) {
-          throw new Error(`${this.$t('payload')} ${this.$t('not method')}`)
+          throw new Error(`${this.$t(this.methodName)} ${this.$t('not method')}`)
         }
       } catch (e) {
         this.$message.error(e.message)

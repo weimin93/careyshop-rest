@@ -26,6 +26,7 @@
   "request": "请求",
   "url": "请求地址",
   "payload": "请求附载",
+  "params": "请求参数",
   "headers": "请求头",
   "account": "认证",
   "login": "登录",
