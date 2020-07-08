@@ -58,5 +58,6 @@
   "header save": "To Select",
   "actions": "Actions",
   "examples": "Examples",
-  "custom": "Custom"
+  "custom": "Custom",
+  "close setting": "Discard changes, close dialog?"
 }

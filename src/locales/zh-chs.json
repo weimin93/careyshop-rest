@@ -58,5 +58,6 @@
   "header save": "保存至列表",
   "actions": "操作",
   "examples": "常用",
-  "custom": "自定义"
+  "custom": "自定义",
+  "close setting": "是否放弃修改，关闭对话框？"
 }

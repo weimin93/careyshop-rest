@@ -7,7 +7,8 @@
     direction="rtl"
     size="550px"
     ref="drawer"
-    @open="openDialog">
+    :before-close="handleClose"
+    @open="handleOpen">
     <div class="setting-drawer__content">
       <el-form :model="form" label-position="left" label-width="105px">
         <el-form-item label="API_BASE">
@@ -75,9 +76,9 @@ export default {
       loading: false,
       form: {
         apiBase: '',
+        apiURL: '',
         appKey: '',
         appSecret: '',
-        apiURL: '',
         variable: []
       }
     }
@@ -86,23 +87,33 @@ export default {
     ...mapActions('careyshop/setting', [
       'set'
     ]),
-    openDialog() {
+    handleClose(done) {
+      if (this.loading) {
+        return
+      }
+
+      this.$confirm(this.$t('close setting'), this.$t('warning'), {
+        type: 'warning'
+      })
+        .then(() => {
+          done()
+        })
+        .catch(() => {
+        })
+    },
+    handleOpen() {
       if (Object.keys(this.setting).length > 0) {
         this.form = { ...this.setting }
       }
     },
     saveData() {
       this.loading = true
-      this.$nextTick(() => {
-        this.set(this.form)
-          .finally(() => {
-            this.loading = false
-            this.$refs.drawer.closeDrawer()
-
-            // 必须刷新页面,否则"request"已实例化无法更新
-            location.reload()
-          })
-      })
+      this.set(this.form)
+        .finally(() => {
+          this.loading = false
+          this.dialog = false
+          location.reload()
+        })
     },
     addVariable() {
       this.form.variable.push({
