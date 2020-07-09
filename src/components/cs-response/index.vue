@@ -4,7 +4,7 @@
       <div flex>
         <div flex-box="1">
           <strong>Request URL：</strong>
-          <a href="https://www.careyshop.cn" target="_blank">https://www.careyshop.cn</a>
+          <a href="https://www.careyshop.cn" title="" target="_blank">https://www.careyshop.cn</a>
           <br>
 
           <strong>Request Method：</strong>
@@ -69,6 +69,13 @@ export default {
 
   .well {
     word-break: break-all;
+
+    a {
+      display: inline-flex;
+      overflow: hidden;
+      white-space: nowrap;
+      width: 50%;
+    }
   }
 
   .well {

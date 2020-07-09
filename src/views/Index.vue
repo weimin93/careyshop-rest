@@ -22,7 +22,7 @@
         </el-form-item>
 
         <el-form-item :label="$t(methodName)">
-          <el-input v-model="request.payload" placeholder="application/json" type="textarea" :rows="10"></el-input>
+          <el-input v-model="request.payload" placeholder="application/json or query string parameters" type="textarea" :rows="10"></el-input>
         </el-form-item>
       </el-form>
     </cs-card>

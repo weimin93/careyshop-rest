@@ -77,7 +77,7 @@ export default {
 
           let result = {
             url: `/${parameter[0]}/${parameter[1]}`,
-            payload: JSON.stringify({ method: parameter[2] }, null, 4)
+            payload: JSON.stringify({ method: parameter[2], format: 'json' }, null, 4)
           }
 
           this.$emit('confirm', result)

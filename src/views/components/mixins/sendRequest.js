@@ -1,5 +1,6 @@
 import util from '@/utils/util'
 import axios from 'axios'
+import qs from 'qs'
 
 export default {
   methods: {
@@ -9,13 +10,70 @@ export default {
     cancel() {
       // this.sendEnd = true
       // this.sendLoading = false
+      this._cancel()
     },
     async submit() {
+      // 重置进度条
+      this.percentage = 0
+
       // 解析请求地址
       let url = this._replace(this.request.url)
 
-      // 解析请求参数
+      // 处理请求参数(尝试解析为JSON)
       let payload = this._replace(this.request.payload)
+
+      // 尝试解码为对象
+      if (!payload) {
+        try {
+          payload = await JSON.parse(payload)
+        } catch (e) {
+          try {
+            payload = qs.parse(payload, { ignoreQueryPrefix: true })
+          } catch (e) {
+          }
+        }
+      } else {
+        payload = {}
+      }
+
+      // 补齐参数与签名
+      let signSteps = []
+      const getSign = () => {
+        // step1
+        let sorted = Object.keys(payload).sort()
+        let secret = this.setting.appSecret || ''
+
+        signSteps.push(JSON.stringify(sorted))
+
+        // step2
+        let basestring = secret
+        const type = ['undefined', 'object', 'function']
+
+        for (let i = 0, l = sorted.length; i < l; i++) {
+          if (sorted[i] === 'sign') {
+            continue
+          }
+
+          let k = sorted[i]
+          if (type.indexOf(typeof payload[k]) === -1) {
+            basestring += k + (typeof payload[k] === 'boolean' ? Number(payload[k]) : payload[k])
+          }
+        }
+
+        basestring += secret
+        signSteps.push(basestring)
+
+        // step3
+        let signMD5 = util.md5(basestring)
+        signSteps.push(signMD5)
+
+        return signMD5
+      }
+
+      payload.appkey = this.setting.appKey || ''
+      payload.timestamp = Math.round(new Date() / 1000) + 100
+      payload.token = util.cookies.get('token') || undefined
+      payload.sign = getSign()
 
       // 解析请求头
       let headers = {}
@@ -40,11 +98,21 @@ export default {
         headers: headers
       })
 
+      // 创建取消请求
+      this._cancel = service.prototype.constructor
+
+      // 实际请求
       service({
-        params: { method: 'get.article.list' }
+        params: this.methodName === 'params' ? payload : undefined,
+        data: this.methodName !== 'params' ? payload : undefined
       })
         .then(res => {
-          console.log(res)
+          console.dir(res)
+        })
+        .catch(err => {
+          console.dir(err)
+        })
+        .finally(() => {
         })
     }
   }
