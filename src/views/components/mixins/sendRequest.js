@@ -8,9 +8,7 @@ export default {
       return util.settingReplace(value, this.setting.variable)
     },
     cancel() {
-      // this.sendEnd = true
-      // this.sendLoading = false
-      this._cancel()
+      this._cancel('Operation canceled by the user.')
     },
     async submit() {
       // 重置进度条
@@ -70,10 +68,12 @@ export default {
         return signMD5
       }
 
-      payload.appkey = this.setting.appKey || ''
-      payload.timestamp = Math.round(new Date() / 1000) + 100
-      payload.token = util.cookies.get('token') || undefined
-      payload.sign = getSign()
+      if (!this.setting.external) {
+        payload.appkey = this.setting.appKey || ''
+        payload.timestamp = Math.round(new Date() / 1000) + 100
+        payload.token = util.cookies.get('token') || undefined
+        payload.sign = getSign()
+      }
 
       // 解析请求头
       let headers = {}
@@ -95,11 +95,11 @@ export default {
         baseURL: url,
         method: this.request.method,
         timeout: 30000,
-        headers: headers
+        headers: headers,
+        cancelToken: new axios.CancelToken(c => {
+          this._cancel = c
+        })
       })
-
-      // 创建取消请求
-      this._cancel = service.prototype.constructor
 
       // 实际请求
       service({

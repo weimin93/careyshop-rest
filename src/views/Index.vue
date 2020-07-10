@@ -11,8 +11,8 @@
             <template slot="prepend">
               <el-button @click="formatPayload" :title="$t('format')" icon="el-icon-s-open" size="mini"/>
               <el-button :title="$t('add favorites')" :disabled="!request.url" icon="el-icon-star-on" size="mini"/>
-              <el-button @click="getHelpDocs" :title="$t('get docs')" :disabled="!request.payload || doc_disabled" icon="el-icon-s-help" size="mini"/>
-              <cs-menu :disabled="!setting.apiBase" @confirm="confirmMenu"/>
+              <el-button v-if="!setting.external" @click="getHelpDocs" :title="$t('get docs')" :disabled="!request.payload || doc_disabled" icon="el-icon-s-help" size="mini"/>
+              <cs-menu v-if="!setting.external" :disabled="!setting.apiBase" @confirm="confirmMenu"/>
             </template>
 
             <el-select v-model="request.method" @change="switchMethod" slot="append">
@@ -31,7 +31,7 @@
       <cs-headers v-model="headers"/>
     </cs-card>
 
-    <cs-card :title="getLoginInfo()" :expanded="true" class="cs-card">
+    <cs-card v-if="!setting.external" :title="getLoginInfo()" :expanded="true" class="cs-card">
       <el-form :inline="true" :label-width="label_width">
         <el-form-item :label="$t('username')">
           <el-input v-model="login.username" :placeholder="$t('username enter')" auto-complete="off" :disabled="is_login" clearable>

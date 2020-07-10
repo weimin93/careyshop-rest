@@ -58,5 +58,6 @@
   "actions": "Actions",
   "examples": "Examples",
   "custom": "Custom",
-  "close setting": "Discard changes, close dialog?"
+  "close setting": "Discard changes, close dialog?",
+  "external": "External"
 }
