@@ -15,8 +15,8 @@
           <span>0.09 seconds</span>
           <br>
 
-          <strong>Response Status：</strong>
-          <span>200 - OK</span>
+          <strong>Response Message：</strong>
+          <span>OK</span>
           <br>
         </div>
         <div class="status-code http-200" title="Response Status Code">200</div>

@@ -140,7 +140,7 @@ export default {
       request: {
         url: '',
         payload: '',
-        method: 'get'
+        method: ''
       },
       // 请求头
       headers: [],
@@ -260,6 +260,8 @@ export default {
     // 设置账号信息
     setLoginInfo() {
       this.is_login = Boolean(util.cookies.get('token'))
+      this.request.method = this.setting.external ? 'get' : 'post'
+
       this.login.mode = util.cookies.get('mode')
       this.login.username = util.cookies.get('name')
 

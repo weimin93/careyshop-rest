@@ -21,7 +21,7 @@ export default {
       let payload = this._replace(this.request.payload)
 
       // 尝试解码为对象
-      if (!payload) {
+      if (payload) {
         try {
           payload = await JSON.parse(payload)
         } catch (e) {
@@ -94,12 +94,15 @@ export default {
       const service = axios.create({
         baseURL: url,
         method: this.request.method,
-        timeout: 30000,
+        timeout: 15000,
         headers: headers,
         cancelToken: new axios.CancelToken(c => {
           this._cancel = c
         })
       })
+
+      // 请求耗时
+      let startTime = Date.now()
 
       // 实际请求
       service({
@@ -107,12 +110,22 @@ export default {
         data: this.methodName !== 'params' ? payload : undefined
       })
         .then(res => {
-          console.dir(res)
+          this.response = res
         })
         .catch(err => {
-          console.dir(err)
+          this.response = err
         })
         .finally(() => {
+          this.response.millis = (Date.now() - startTime) / 1000
+          this.percentage = 100
+          this.response.signSteps = signSteps
+
+          setTimeout(() => {
+            this.sendLoading = false
+            this.sendEnd = true
+          }, 500)
+
+          console.log(this.response)
         })
     }
   }
