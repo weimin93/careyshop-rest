@@ -11,8 +11,8 @@
             <template slot="prepend">
               <el-button @click="formatPayload" :title="$t('format')" icon="el-icon-s-open" size="mini"/>
               <el-button :title="$t('add favorites')" :disabled="!request.url" icon="el-icon-star-on" size="mini"/>
-              <el-button v-if="!setting.external" @click="getHelpDocs" :title="$t('get docs')" :disabled="!request.payload || doc_disabled" icon="el-icon-s-help" size="mini"/>
-              <cs-menu v-if="!setting.external" :disabled="!setting.apiBase" @confirm="confirmMenu"/>
+              <el-button @click="getHelpDocs" :title="$t('get docs')" :disabled="!request.payload || doc_disabled" icon="el-icon-s-help" size="mini"/>
+              <cs-menu :disabled="!setting.apiBase" @confirm="confirmMenu"/>
             </template>
 
             <el-select v-model="request.method" @change="switchMethod" slot="append">
@@ -31,7 +31,7 @@
       <cs-headers v-model="headers"/>
     </cs-card>
 
-    <cs-card v-if="!setting.external" :title="getLoginInfo()" :expanded="true" class="cs-card">
+    <cs-card :title="getLoginInfo()" :expanded="true" class="cs-card">
       <el-form :inline="true" :label-width="label_width">
         <el-form-item :label="$t('username')">
           <el-input v-model="login.username" :placeholder="$t('username enter')" auto-complete="off" :disabled="is_login" clearable>
@@ -77,7 +77,11 @@
     </div>
 
     <cs-card :title="$t('response')" :expanded="!sendEnd">
-      <cs-response v-show="!sendLoading"/>
+      <cs-response v-show="!sendLoading" v-model="response"/>
+      <div class="cs-tc">
+        <el-button :title="$t('copy request url')" @click="copyRequest">{{$t('copy request')}}</el-button>
+        <el-button :title="$t('copy response body')" @click="copyResponse">{{$t('copy response')}}</el-button>
+      </div>
     </cs-card>
   </div>
 </template>
@@ -89,6 +93,8 @@ import sendRequest from './components/mixins/sendRequest'
 import { getAppCaptcha } from '@/api/app'
 import { loginAdminUser, logoutAdminUser } from '@/api/admin'
 import { loginClientUser, logoutClientUser } from '@/api/client'
+import * as clipboard from 'clipboard-polyfill'
+import { get } from 'lodash'
 
 export default {
   name: 'Index',
@@ -108,7 +114,7 @@ export default {
     return {
       is_login: false,
       doc_disabled: false,
-      methodName: 'params',
+      methodName: 'payload',
       label_width: '90px',
       percentage: 0,
       sendLoading: false,
@@ -140,7 +146,7 @@ export default {
       request: {
         url: '',
         payload: '',
-        method: ''
+        method: 'post'
       },
       // 请求头
       headers: [],
@@ -153,6 +159,20 @@ export default {
     this.setCaptcha()
   },
   methods: {
+    copyRequest() {
+    },
+    copyResponse() {
+      // let response = get(this.response, 'data', {})
+      // let copyData = JSON.stringify(response, null, 4)
+      //
+      // clipboard.writeText(copyData)
+      //   .then(() => {
+      //     this.$message.success(this.$t('copy success'))
+      //   })
+      //   .catch(err => {
+      //     this.$message.error(err)
+      //   })
+    },
     // 格式化代码
     formatPayload() {
       if (this.request.payload) {
@@ -260,8 +280,6 @@ export default {
     // 设置账号信息
     setLoginInfo() {
       this.is_login = Boolean(util.cookies.get('token'))
-      this.request.method = this.setting.external ? 'get' : 'post'
-
       this.login.mode = util.cookies.get('mode')
       this.login.username = util.cookies.get('name')
 

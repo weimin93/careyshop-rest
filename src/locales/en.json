@@ -59,5 +59,9 @@
   "examples": "Examples",
   "custom": "Custom",
   "close setting": "Discard changes, close dialog?",
-  "external": "External"
+  "copy request": "Copy Request",
+  "copy response": "Copy Response",
+  "copy request url": "Copy Request URL",
+  "copy response body": "Copy Response Body",
+  "copy success": "Successfully copied to the Clipboard"
 }

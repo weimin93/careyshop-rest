@@ -59,5 +59,9 @@
   "examples": "常用",
   "custom": "自定义",
   "close setting": "是否放弃修改，关闭对话框？",
-  "external": "外部接口"
+  "copy request": "复制请求",
+  "copy response": "复制响应",
+  "copy request url": "复制请求链接",
+  "copy response body": "复制响应正文",
+  "copy success": "成功复制到剪贴板"
 }

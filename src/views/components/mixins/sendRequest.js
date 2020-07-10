@@ -68,12 +68,10 @@ export default {
         return signMD5
       }
 
-      if (!this.setting.external) {
-        payload.appkey = this.setting.appKey || ''
-        payload.timestamp = Math.round(new Date() / 1000) + 100
-        payload.token = util.cookies.get('token') || undefined
-        payload.sign = getSign()
-      }
+      payload.appkey = this.setting.appKey || ''
+      payload.timestamp = Math.round(new Date() / 1000) + 100
+      payload.token = util.cookies.get('token') || undefined
+      payload.sign = getSign()
 
       // 解析请求头
       let headers = {}
@@ -116,8 +114,8 @@ export default {
           this.response = err
         })
         .finally(() => {
-          this.response.millis = (Date.now() - startTime) / 1000
           this.percentage = 100
+          this.response.millis = (Date.now() - startTime) / 1000
           this.response.signSteps = signSteps
 
           setTimeout(() => {
@@ -125,7 +123,8 @@ export default {
             this.sendEnd = true
           }, 500)
 
-          console.log(this.response)
+          console.log('----------------')
+          console.dir(this.response)
         })
     }
   }

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="cs-mb">
     <div class="well small">
       <div flex>
         <div flex-box="1">
@@ -54,6 +54,12 @@
 <script>
 export default {
   name: 'cs-response',
+  props: {
+    value: {
+      required: true,
+      default: () => {}
+    }
+  },
   data() {
     return {
       activeName: 'body'

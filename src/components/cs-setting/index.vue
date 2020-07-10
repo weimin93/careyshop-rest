@@ -23,10 +23,6 @@
           <el-input v-model="form.appSecret" :placeholder="$t('appsecret')" clearable/>
         </el-form-item>
 
-        <el-form-item :label="$t('external')">
-          <el-switch v-model="form.external"/>
-        </el-form-item>
-
         <div class="variable">
           <el-form-item
             v-for="(value, index) in form.variable"
@@ -79,7 +75,6 @@ export default {
         apiBase: '',
         appKey: '',
         appSecret: '',
-        external: false,
         variable: []
       }
     }
