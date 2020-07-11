@@ -37,7 +37,6 @@ export default {
         value: state.headers
       }, { root: true })
     },
-
     /**
      * 新增自定义请求头
      * @param state

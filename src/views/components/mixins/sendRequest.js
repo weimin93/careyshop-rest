@@ -1,9 +1,13 @@
+import { mapActions } from 'vuex'
 import util from '@/utils/util'
 import axios from 'axios'
 import qs from 'qs'
 
 export default {
   methods: {
+    ...mapActions('careyshop/history', [
+      'addHistory'
+    ]),
     _replace(value) {
       return util.settingReplace(value, this.setting.variable)
     },
@@ -104,8 +108,8 @@ export default {
       let startTime = Date.now()
 
       service({
-        params: this.methodName === 'params' ? payload : undefined,
-        data: this.methodName !== 'params' ? payload : undefined
+        params: this.request.methodName === 'params' ? payload : undefined,
+        data: this.request.methodName !== 'params' ? payload : undefined
       })
         .then(res => {
           result = res
@@ -122,6 +126,13 @@ export default {
             delete result.headers['x-powered-by']
             this.sendLoading = false
             this.response = result
+
+            let history = {}
+            history.mode = this.login.mode
+            history.request = { ...this.request }
+            history.headers = [...this.headers]
+            history.response = { ...this.response }
+            this.addHistory(history)
           }, 500)
         })
     }

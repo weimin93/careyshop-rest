@@ -21,7 +21,7 @@
           </el-input>
         </el-form-item>
 
-        <el-form-item :label="$t(methodName)">
+        <el-form-item :label="$t(request.methodName)">
           <el-input v-model="request.payload" placeholder="application/json or query string parameters" type="textarea" :rows="10"></el-input>
         </el-form-item>
       </el-form>
@@ -114,7 +114,6 @@ export default {
     return {
       is_login: false,
       doc_disabled: false,
-      methodName: 'payload',
       label_width: '90px',
       percentage: 0,
       sendLoading: false,
@@ -145,7 +144,8 @@ export default {
       request: {
         url: '',
         payload: '',
-        method: 'post'
+        method: 'post',
+        methodName: 'payload'
       },
       // 请求头
       headers: [],
@@ -186,11 +186,11 @@ export default {
         case 'put':
         case 'post':
         case 'patch':
-          this.methodName = 'payload'
+          this.request.methodName = 'payload'
           break
 
         default:
-          this.methodName = 'params'
+          this.request.methodName = 'params'
       }
     },
     // 设置是否启用验证码
@@ -306,7 +306,7 @@ export default {
       try {
         data = JSON.parse(this.request.payload)
         if (!Object.prototype.hasOwnProperty.call(data, 'method')) {
-          throw new Error(`${this.$t(this.methodName)} ${this.$t('not method')}`)
+          throw new Error(`${this.$t(this.request.methodName)} ${this.$t('not method')}`)
         }
       } catch (e) {
         this.$message.error(e.message)
