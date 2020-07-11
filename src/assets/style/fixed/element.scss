@@ -27,6 +27,10 @@
   margin-right: 8px !important;
 }
 
+.el-cascader-menu__wrap {
+  height: 300px !important;
+}
+
 // 修复IE宽度不能撑满
 .el-table__body,
 .el-table__header {

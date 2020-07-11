@@ -1,5 +1,6 @@
 <template>
-  <pre class="cs-highlight hljs" v-html="highlightHTML"/>
+  <pre v-if="!isRaw" class="cs-highlight hljs" v-html="highlightHTML"/>
+  <pre v-else class="cs-highlight hljs">{{code}}</pre>
 </template>
 
 <script>
@@ -26,6 +27,11 @@ export default {
       type: String,
       required: false,
       default: ''
+    },
+    isRaw: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data() {
@@ -63,7 +69,23 @@ export default {
   .cs-highlight {
     margin: 0;
     border-radius: 4px;
+    max-height: 600px;
     font-size: 12px;
     font-family: source-code-pro, Menlo, Monaco, Consolas, Courier New, monospace;
+    padding: 19px;
+    border: 1px solid #E9E9EB;
+  }
+
+  .cs-highlight__body {
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    white-space: pre-wrap;
+    word-break: break-all;
+    word-wrap: break-word;
+  }
+
+  .cs-highlight__raw {
+    overflow: auto;
   }
 </style>

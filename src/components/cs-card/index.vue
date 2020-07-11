@@ -2,7 +2,7 @@
   <el-card shadow="never" :class="{'hide-body': isHide, 'cs-mb': true}">
     <div slot="header" class="clearfix">
       <span>{{title}}</span>
-      <i :class="`el-icon-arrow-${isHide ? 'down' : 'right'} expanded`" @click="isHide = !isHide"/>
+      <i :class="`el-icon-arrow-${isHide ? 'right' : 'down'} expanded`" @click="isHide = !isHide"/>
     </div>
     <slot/>
   </el-card>

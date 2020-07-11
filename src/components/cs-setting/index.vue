@@ -59,6 +59,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import { cloneDeep } from 'lodash'
+import util from '@/utils/util'
 
 export default {
   name: 'cs-setting',
@@ -108,6 +109,11 @@ export default {
         .finally(() => {
           this.loading = false
           this.dialog = false
+
+          util.cookies.remove('mode')
+          util.cookies.remove('name')
+          util.cookies.remove('token')
+
           location.reload()
         })
     },

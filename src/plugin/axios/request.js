@@ -42,7 +42,7 @@ function getSettingValur(key) {
 // 创建一个axios实例
 const service = axios.create({
   // api的base_url
-  baseURL: getSettingValur('apiBase'),
+  baseURL: util.checkUrl(getSettingValur('apiBase')),
   // request timeout
   timeout: 30000,
   // 默认使用简单请求,避免复杂请求(多一次OPTIONS请求)

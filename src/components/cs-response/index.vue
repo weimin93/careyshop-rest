@@ -2,56 +2,70 @@
   <div class="cs-mb">
     <div class="well small">
       <div flex>
-        <div flex-box="1">
+        <div flex-box="1" style="width: 70%;">
           <strong>Request URL：</strong>
-          <a href="https://www.careyshop.cn" title="" target="_blank">https://www.careyshop.cn</a>
+          <a :href="get(value, 'request.responseURL')" target="_blank">{{get(value, 'request.responseURL', '-')}}</a>
           <br>
 
           <strong>Request Method：</strong>
-          <span>GET</span>
+          <span>{{get(value, 'config.method', '-').toUpperCase()}}</span>
           <br>
 
           <strong>Response Time：</strong>
-          <span>0.09 seconds</span>
+          <span>{{value.millis || '-'}}</span>
           <br>
 
-          <strong>Response Message：</strong>
-          <span>OK</span>
+          <strong>Response Status：</strong>
+          <span>{{get(value, 'status')}} - {{get(value, 'statusText')}}</span>
           <br>
         </div>
-        <div class="status-code http-200" title="Response Status Code">200</div>
+        <div :class="`status-code http-${get(value, 'status')}`" title="Response Status Code">{{get(value, 'status')}}</div>
       </div>
     </div>
 
     <el-tabs v-model="activeName">
       <el-tab-pane label="Body" name="body">
-        Response Body
+        <cs-highlight class="cs-highlight__body" :code="get(value, 'data') | jsonFormat"/>
       </el-tab-pane>
 
       <el-tab-pane label="Raw" name="raw">
-        Response Body (RAW)
+        <cs-highlight class="cs-highlight__raw" :code="get(value, 'data') | jsonFormat" :is-raw="true"/>
       </el-tab-pane>
 
       <el-tab-pane label="Preview" name="preview">
-        Response Preview
+        <iframe class="response-iframe" :srcdoc="get(value, 'request.response')" frameborder="0"/>
       </el-tab-pane>
 
       <el-tab-pane label="Headers" name="headers">
-        Response Headers
+        <cs-highlight :code="get(value, 'headers') | jsonFormat"/>
       </el-tab-pane>
 
       <el-tab-pane label="Details" name="details">
-        Request Details
+        <cs-highlight :code="get(value, 'config') | jsonFormat"/>
       </el-tab-pane>
 
       <el-tab-pane label="Signature" name="sign">
-        Request Signature
+        <el-steps direction="vertical" :active="3">
+          <el-step title="排序">
+            <pre class="response-step" slot="description">{{get(value, 'signSteps[0]')}}</pre>
+          </el-step>
+
+          <el-step title="重组">
+            <pre class="response-step" slot="description">{{get(value, 'signSteps[1]')}}</pre>
+          </el-step>
+
+          <el-step title="生成">
+            <pre class="response-step" slot="description">{{get(value, 'signSteps[2]')}}</pre>
+          </el-step>
+        </el-steps>
       </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 
 <script>
+import { get } from 'lodash'
+
 export default {
   name: 'cs-response',
   props: {
@@ -64,6 +78,18 @@ export default {
     return {
       activeName: 'body'
     }
+  },
+  filters: {
+    jsonFormat(value) {
+      if (value && typeof value === 'object') {
+        return JSON.stringify(value, null, 4)
+      }
+
+      return value
+    }
+  },
+  methods: {
+    get
   }
 }
 </script>
@@ -88,10 +114,23 @@ export default {
     padding: 19px;
     min-height: 20px;
     margin-bottom: 10px;
-    background-color: #F4F4F5;
+    background-color: #F8F8F8;
     border: 1px solid #E9E9EB;
     border-radius: 4px;
     color: $color-info;
+  }
+
+  .response-iframe {
+    width: 100%;
+    height: 600px;
+  }
+
+  .response-step {
+    font-family: inherit;
+    margin: 10px 20px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: $color-text-main;
   }
 
   .status-code {

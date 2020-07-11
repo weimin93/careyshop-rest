@@ -6,7 +6,8 @@ export default {
     examples: [
       { name: 'Accept', value: 'application/json', key: 0 },
       { name: 'Cache-Control', value: 'no-cache', key: 1 },
-      { name: 'Content-Type', value: 'application/json', key: 2 }
+      { name: 'Content-Type', value: 'application/json', key: 2 },
+      { name: 'Content-Type', value: 'text/plain', key: 3 }
     ]
   },
   actions: {

@@ -67,20 +67,20 @@
       </el-form>
     </cs-card>
 
-    <div class="cs-mb cs-tr" flex>
+    <div class="cs-mb cs-tr" style="height: 40px;" flex>
       <div class="send-progress cs-mr" flex-box="1">
-        <el-progress v-show="sendLoading" :text-inside="true" :stroke-width="26" :percentage="percentage"/>
+        <el-progress v-show="sendLoading" :text-inside="true" :stroke-width="25" :percentage="percentage"/>
       </div>
 
       <el-button v-show="sendLoading" @click="cancel" type="danger">{{$t('cancel')}}</el-button>
       <el-button type="primary" @click="submit" :disabled="!request.url" :loading="sendLoading">{{$t('send request')}}</el-button>
     </div>
 
-    <cs-card :title="$t('response')" :expanded="!sendEnd">
-      <cs-response v-show="!sendLoading" v-model="response"/>
+    <cs-card :title="$t('response')">
+      <cs-response v-model="response"/>
       <div class="cs-tc">
-        <el-button :title="$t('copy request url')" @click="copyRequest">{{$t('copy request')}}</el-button>
-        <el-button :title="$t('copy response body')" @click="copyResponse">{{$t('copy response')}}</el-button>
+        <el-button :title="$t('copy request url')" @click="copyRequest('request.responseURL')">{{$t('copy request')}}</el-button>
+        <el-button :title="$t('copy response body')" @click="copyRequest('request.response')">{{$t('copy response')}}</el-button>
       </div>
     </cs-card>
   </div>
@@ -118,7 +118,6 @@ export default {
       label_width: '90px',
       percentage: 0,
       sendLoading: false,
-      sendEnd: false,
       methodMap: [
         { key: 'get', value: 'GET' },
         { key: 'post', value: 'POST' },
@@ -159,19 +158,16 @@ export default {
     this.setCaptcha()
   },
   methods: {
-    copyRequest() {
-    },
-    copyResponse() {
-      // let response = get(this.response, 'data', {})
-      // let copyData = JSON.stringify(response, null, 4)
-      //
-      // clipboard.writeText(copyData)
-      //   .then(() => {
-      //     this.$message.success(this.$t('copy success'))
-      //   })
-      //   .catch(err => {
-      //     this.$message.error(err)
-      //   })
+    // 复制响应某个值
+    copyRequest(key) {
+      let response = get(this.response, key, '')
+      clipboard.writeText(response)
+        .then(() => {
+          this.$message.success(this.$t('copy success'))
+        })
+        .catch(err => {
+          this.$message.error(err)
+        })
     },
     // 格式化代码
     formatPayload() {
@@ -228,7 +224,7 @@ export default {
       url += '/v1/app.html?'
       url += `method=image.app.captcha&session_id=${this.login.session_id}&t=${Math.random()}`
 
-      this.captcha.url = url
+      this.captcha.url = util.checkUrl(url)
       this.login.login_code = ''
     },
     // 账号登录
@@ -264,6 +260,8 @@ export default {
       const logout = this.login.mode === 'admin' ? logoutAdminUser : logoutClientUser
 
       logout()
+        .catch(() => {
+        })
         .finally(() => {
           this.login.mode = ''
           this.login.loading = false

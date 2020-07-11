@@ -16,6 +16,9 @@ export default {
 
       // 解析请求地址
       let url = this._replace(this.request.url)
+      if (!/^http[s]?:\/\/.*/.test(url)) {
+        url = document.location.protocol + '//' + url
+      }
 
       // 处理请求参数(尝试解析为JSON)
       let payload = this._replace(this.request.payload)
@@ -41,7 +44,7 @@ export default {
         let sorted = Object.keys(payload).sort()
         let secret = this.setting.appSecret || ''
 
-        signSteps.push(JSON.stringify(sorted))
+        signSteps.push(JSON.stringify(sorted, null, 4))
 
         // step2
         let basestring = secret
@@ -81,12 +84,9 @@ export default {
       })
 
       // 初始化各类数据
-      this.sendEnd = false
       this.sendLoading = true
-
       await this.$nextTick()
       this.percentage = 60
-      this.response = {}
 
       // 创建一个axios实例
       const service = axios.create({
@@ -99,32 +99,30 @@ export default {
         })
       })
 
-      // 请求耗时
+      // 实际请求
+      let result = {}
       let startTime = Date.now()
 
-      // 实际请求
       service({
         params: this.methodName === 'params' ? payload : undefined,
         data: this.methodName !== 'params' ? payload : undefined
       })
         .then(res => {
-          this.response = res
+          result = res
         })
         .catch(err => {
-          this.response = err
+          result = err
         })
         .finally(() => {
           this.percentage = 100
-          this.response.millis = (Date.now() - startTime) / 1000
-          this.response.signSteps = signSteps
+          result.signSteps = signSteps
+          result.millis = `${(Date.now() - startTime) / 1000} seconds`
 
           setTimeout(() => {
+            delete result.headers['x-powered-by']
             this.sendLoading = false
-            this.sendEnd = true
+            this.response = result
           }, 500)
-
-          console.log('----------------')
-          console.dir(this.response)
         })
     }
   }
