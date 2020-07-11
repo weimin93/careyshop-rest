@@ -24,37 +24,37 @@
     </div>
 
     <el-tabs v-model="activeName">
-      <el-tab-pane label="Body" name="body">
+      <el-tab-pane :label="$t('body')" name="body">
         <cs-highlight class="cs-highlight__body" :code="get(value, 'data') | jsonFormat"/>
       </el-tab-pane>
 
-      <el-tab-pane label="Raw" name="raw">
+      <el-tab-pane :label="$t('raw')" name="raw">
         <cs-highlight class="cs-highlight__raw" :code="get(value, 'data') | jsonFormat" :is-raw="true"/>
       </el-tab-pane>
 
-      <el-tab-pane label="Preview" name="preview">
+      <el-tab-pane :label="$t('preview')" name="preview">
         <iframe class="response-iframe" :srcdoc="get(value, 'request.response')" frameborder="0"/>
       </el-tab-pane>
 
-      <el-tab-pane label="Headers" name="headers">
+      <el-tab-pane :label="$t('headers')" name="headers">
         <cs-highlight :code="get(value, 'headers') | jsonFormat"/>
       </el-tab-pane>
 
-      <el-tab-pane label="Details" name="details">
+      <el-tab-pane :label="$t('details')" name="details">
         <cs-highlight :code="get(value, 'config') | jsonFormat"/>
       </el-tab-pane>
 
-      <el-tab-pane label="Signature" name="sign">
+      <el-tab-pane :label="$t('sign')" name="sign">
         <el-steps direction="vertical" :active="3">
-          <el-step title="排序">
+          <el-step :title="$t('sort')">
             <pre class="response-step" slot="description">{{get(value, 'signSteps[0]')}}</pre>
           </el-step>
 
-          <el-step title="重组">
+          <el-step :title="$t('merge')">
             <pre class="response-step" slot="description">{{get(value, 'signSteps[1]')}}</pre>
           </el-step>
 
-          <el-step title="生成">
+          <el-step :title="$t('build')">
             <pre class="response-step" slot="description">{{get(value, 'signSteps[2]')}}</pre>
           </el-step>
         </el-steps>

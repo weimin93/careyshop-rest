@@ -63,5 +63,13 @@
   "copy response": "复制响应",
   "copy request url": "复制请求链接",
   "copy response body": "复制响应正文",
-  "copy success": "成功复制到剪贴板"
+  "copy success": "成功复制到剪贴板",
+  "sort": "排序",
+  "merge": "合并",
+  "build": "生成",
+  "body": "正文",
+  "raw": "源文",
+  "preview": "预览",
+  "details": "详细",
+  "sign": "签名"
 }

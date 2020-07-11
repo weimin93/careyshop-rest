@@ -63,5 +63,13 @@
   "copy response": "Copy Response",
   "copy request url": "Copy Request URL",
   "copy response body": "Copy Response Body",
-  "copy success": "Successfully copied to the Clipboard"
+  "copy success": "Successfully copied to the Clipboard",
+  "sort": "Sort",
+  "merge": "Merge",
+  "build": "Build",
+  "body": "Body",
+  "raw": "Raw",
+  "preview": "Preview",
+  "details": "Details",
+  "sign": "Signature"
 }
