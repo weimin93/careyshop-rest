@@ -57,6 +57,16 @@ export default {
     async delHistory({ state, dispatch }, key) {
       state.history.splice(key, 1)
       await dispatch('openecsdb')
+    },
+    /**
+     * 清空历史记录
+     * @param state
+     * @param dispatch
+     * @returns {Promise<void>}
+     */
+    async cleanHistory({ state, dispatch }) {
+      state.history = []
+      await dispatch('openecsdb')
     }
   }
 }
