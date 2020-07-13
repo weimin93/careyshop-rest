@@ -19,7 +19,7 @@
           <span>{{get(value, 'status')}} - {{get(value, 'statusText')}}</span>
           <br>
         </div>
-        <div :class="`status-code http-${get(value, 'status')}`" title="Response Status Code">{{get(value, 'status')}}</div>
+        <div :class="`status-code http-${get(value, 'status')}`">{{get(value, 'status')}}</div>
       </div>
     </div>
 

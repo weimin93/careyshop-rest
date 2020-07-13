@@ -116,6 +116,8 @@ export default {
         })
         .catch(err => {
           result = err.response || err
+          result.status = result.status || -1
+          result.statusText = err.message
         })
         .finally(() => {
           this.percentage = 100
@@ -123,7 +125,7 @@ export default {
           result.millis = `${(Date.now() - startTime) / 1000} seconds`
 
           setTimeout(() => {
-            if (Object.prototype.hasOwnProperty.call(result.headers, 'x-powered-by')) {
+            if (result.headers && Object.prototype.hasOwnProperty.call(result.headers, 'x-powered-by')) {
               delete result.headers['x-powered-by']
             }
 
