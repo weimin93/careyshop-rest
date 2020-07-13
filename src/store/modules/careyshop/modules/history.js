@@ -44,7 +44,11 @@ export default {
         await dispatch('load')
       }
 
-      state.history.unshift(value)
+      state.history.unshift({
+        key: Date.now(),
+        ...value
+      })
+
       await dispatch('openecsdb')
     },
     /**
@@ -55,7 +59,13 @@ export default {
      * @returns {Promise<void>}
      */
     async delHistory({ state, dispatch }, key) {
-      state.history.splice(key, 1)
+      for (let i = state.history.length - 1; i >= 0; i--) {
+        if (state.history[i].key === key) {
+          state.history.splice(i, 1)
+          break
+        }
+      }
+
       await dispatch('openecsdb')
     },
     /**

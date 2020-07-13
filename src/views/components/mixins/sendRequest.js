@@ -132,11 +132,13 @@ export default {
             this.sendLoading = false
             this.response = result
 
-            let history = {}
-            history.mode = this.login.mode
-            history.request = { ...this.request }
-            history.headers = [...this.headers]
-            history.response = { ...this.response }
+            let history = {
+              mode: this.login.mode,
+              request: { ...this.request },
+              headers: [...this.headers],
+              response: { ...this.response }
+            }
+
             this.addHistory(history)
           }, 500)
         })
