@@ -32,6 +32,7 @@ export default {
       state.setting = await dispatch('careyshop/db/get', {
         path: 'setting',
         defaultValue: {
+          apiBase: process.env.VUE_APP_API_BASE,
           appKey: process.env.VUE_APP_KEY,
           appSecret: process.env.VUE_APP_SECRET,
           variable: []
