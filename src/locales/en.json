@@ -71,5 +71,16 @@
   "raw": "Raw",
   "preview": "Preview",
   "details": "Details",
-  "sign": "Signature"
+  "sign": "Signature",
+  "help-1-1": "API_BASE",
+  "help-1-2": "The interface access address supports relative and absolute addresses, and supports the use of variables.",
+  "help-2-1": "APP_KEY and APP_SECRET",
+  "help-2-2": "It can be obtained from the APP in the background or newly created. These two values do not support the use of variables.",
+  "help-3-1": "Custom variable",
+  "help-3-2": "API_BASE, URL, Payload, Headers all support the use of variables.",
+  "help-4-1": "Debug other frameworks",
+  "help-4-2": "In theory, you can access any interface address, but it is not necessarily whether other framework servers support cross-domain support.",
+  "help-4-3": "The access interface may be rejected by the browser.",
+  "help-5-1": "Save configuration",
+  "help-5-2": "After the configuration modification is saved, the logged-in account will be cancelled."
 }

@@ -21,8 +21,8 @@
 <!--        <el-menu-item>{{$t('import favorites')}}</el-menu-item>-->
 <!--        <el-menu-item>{{$t('export favorites')}}</el-menu-item>-->
 <!--      </el-submenu>-->
-<!--      <el-menu-item index="/history">{{$t('history')}}</el-menu-item>-->
-<!--      <el-menu-item index="/help">{{$t('help')}}</el-menu-item>-->
+      <el-menu-item index="/history">{{$t('history')}}</el-menu-item>
+      <el-menu-item index="/help">{{$t('help')}}</el-menu-item>
       <el-menu-item @click="openSetting">{{$t('setting')}}</el-menu-item>
       <el-submenu index="languages">
         <template slot="title">{{$t('languages')}}</template>
