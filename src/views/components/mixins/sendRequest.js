@@ -2,6 +2,7 @@ import { mapActions } from 'vuex'
 import util from '@/utils/util'
 import axios from 'axios'
 import qs from 'qs'
+import dayjs from 'dayjs'
 
 export default {
   methods: {
@@ -129,17 +130,17 @@ export default {
               delete result.headers['x-powered-by']
             }
 
-            this.sendLoading = false
-            this.response = result
-
             let history = {
               mode: this.login.mode,
+              date: dayjs().format('YYYY-MM-DD HH:mm:ss'),
               request: { ...this.request },
               headers: [...this.headers],
-              response: { ...this.response }
+              response: { ...result }
             }
 
             this.addHistory(history)
+            this.sendLoading = false
+            this.response = result
           }, 500)
         })
     }

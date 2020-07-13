@@ -82,5 +82,7 @@
   "help-4-2": "In theory, you can access any interface address, but it is not necessarily whether other framework servers support cross-domain support.",
   "help-4-3": "The access interface may be rejected by the browser.",
   "help-5-1": "Save configuration",
-  "help-5-2": "After the configuration modification is saved, the logged-in account will be cancelled."
+  "help-5-2": "After the configuration modification is saved, the logged-in account will be cancelled.",
+  "copy": "Copy",
+  "run": "Run"
 }
