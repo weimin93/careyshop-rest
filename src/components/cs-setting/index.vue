@@ -103,19 +103,19 @@ export default {
         this.form = cloneDeep(this.setting)
       }
     },
-    saveData() {
+    async saveData() {
       this.loading = true
-      this.set(this.form)
-        .finally(() => {
-          this.loading = false
-          this.dialog = false
+      await this.set(this.form)
 
-          util.cookies.remove('mode')
-          util.cookies.remove('name')
-          util.cookies.remove('token')
+      setTimeout(() => {
+        util.cookies.remove('mode')
+        util.cookies.remove('name')
+        util.cookies.remove('token')
 
-          location.reload()
-        })
+        this.dialog = false
+        this.loading = false
+        location.reload()
+      }, 1000)
     },
     addVariable() {
       this.form.variable.push({
