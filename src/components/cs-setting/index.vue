@@ -80,6 +80,17 @@ export default {
       }
     }
   },
+  mounted() {
+    if (!this.setting.apiBase || !this.setting.appKey || !this.setting.appSecret) {
+      this.$notify({
+        title: this.$t('warning'),
+        message: this.$t('not setting'),
+        type: 'warning',
+        position: 'bottom-right',
+        duration: 0
+      })
+    }
+  },
   methods: {
     ...mapActions('careyshop/setting', [
       'set'
