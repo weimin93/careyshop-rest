@@ -84,5 +84,5 @@
   "help-5-2": "After the configuration modification is saved, the logged-in account will be cancelled.",
   "copy": "Copy",
   "run": "Run",
-  "not setting": "Some of the entries in \"Settings\" are incomplete, and some functions will be temporarily unavailable."
+  "not setting": "Some of the entries in \"Setting\" are incomplete, and some functions will be temporarily unavailable."
 }
