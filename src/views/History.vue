@@ -64,8 +64,18 @@
       <cs-response style="margin-top: -25px;" v-model="visibleData"/>
 
       <div slot="footer" class="dialog-footer">
+        <el-dropdown class="cs-mr-10" @command="copyRequest">
+          <el-button type="primary" size="medium">
+            {{$t('copy')}}<i class="el-icon-arrow-down el-icon--right"/>
+          </el-button>
+
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item command="request.responseURL">{{$t('copy request')}}</el-dropdown-item>
+            <el-dropdown-item command="request.response">{{$t('copy response')}}</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+
         <el-button @click="() => {}" type="primary" size="medium">{{$t('run')}}</el-button>
-        <el-button @click="() => {}" type="primary" size="medium">{{$t('copy')}}</el-button>
         <el-button @click="visible = false" size="medium">{{$t('cancel')}}</el-button>
       </div>
     </el-dialog>
@@ -75,6 +85,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import { get, slice } from 'lodash'
+import * as clipboard from 'clipboard-polyfill'
 
 export default {
   name: 'History',
@@ -110,6 +121,16 @@ export default {
 
       const data = slice(this.history, start, end)
       this.tableData = [...data]
+    },
+    copyRequest(key) {
+      let response = get(this.visibleData, key, '')
+      clipboard.writeText(response)
+        .then(() => {
+          this.$message.success(this.$t('copy success'))
+        })
+        .catch(err => {
+          this.$message.error(err)
+        })
     },
     async loadHistory() {
       await this.load()
