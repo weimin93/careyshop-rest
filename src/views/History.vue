@@ -44,7 +44,7 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="currentPage"
-        :page-sizes="[50, 100, 200, 300, 400]"
+        :page-sizes="[25, 50, 100, 200, 300, 400]"
         :page-size="pageSize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="history.length">
@@ -103,7 +103,7 @@ export default {
       visibleData: {},
       tableData: [],
       currentPage: 1,
-      pageSize: 50
+      pageSize: 25
     }
   },
   mounted() {

@@ -113,8 +113,12 @@ export default {
   watch: {
     value: {
       handler(val) {
-        // this.request = get(val, 'request', {})
-        // this.$set(this, 'headers', get(val, 'headers', []))
+        const request = get(val, 'request')
+        if (request) {
+          this.request = { ...request }
+        }
+
+        this.headers = get(val, 'headers', [])
       },
       immediate: true
     }

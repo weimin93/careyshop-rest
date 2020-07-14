@@ -161,8 +161,11 @@ export default {
     }
   },
   watch: {
-    value(value) {
-      this.tableData = value
+    value: {
+      handler(val) {
+        this.tableData = val
+      },
+      immediate: true
     }
   },
   methods: {
