@@ -14,13 +14,12 @@
       active-text-color="#FFD04B"
       :router="true">
       <el-menu-item index="/index">{{$t('home')}}</el-menu-item>
-<!--      <el-submenu index="favorites">-->
-<!--        <template slot="title">{{$t('favorites')}}</template>-->
-<!--        <el-menu-item index="/favorites">{{$t('manage favorites')}}</el-menu-item>-->
-<!--        <el-menu-item>{{$t('save current request')}}</el-menu-item>-->
-<!--        <el-menu-item>{{$t('import favorites')}}</el-menu-item>-->
-<!--        <el-menu-item>{{$t('export favorites')}}</el-menu-item>-->
-<!--      </el-submenu>-->
+      <el-submenu index="favorites">
+        <template slot="title">{{$t('favorites')}}</template>
+        <el-menu-item index="/favorites">{{$t('manage favorites')}}</el-menu-item>
+        <el-menu-item>{{$t('import favorites')}}</el-menu-item>
+        <el-menu-item>{{$t('export favorites')}}</el-menu-item>
+      </el-submenu>
       <el-menu-item index="/history">{{$t('history')}}</el-menu-item>
       <el-menu-item index="/help">{{$t('help')}}</el-menu-item>
       <el-menu-item @click="openSetting">{{$t('setting')}}</el-menu-item>
