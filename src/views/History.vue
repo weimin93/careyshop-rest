@@ -75,7 +75,7 @@
           </el-dropdown-menu>
         </el-dropdown>
 
-        <el-button @click="() => {}" type="primary" size="medium">{{$t('run')}}</el-button>
+        <el-button @click="apply(visibleData.index)" type="primary" size="medium">{{$t('run')}}</el-button>
         <el-button @click="visible = false" size="medium">{{$t('cancel')}}</el-button>
       </div>
     </el-dialog>
@@ -145,6 +145,13 @@ export default {
       this._setTable()
     },
     apply(index) {
+      const data = this.tableData[index]
+      this.$router.push({
+        name: 'Index',
+        params: {
+          value: { ...data }
+        }
+      })
     },
     async remove(index) {
       const key = get(this.tableData, `[${index}]key`)
@@ -156,6 +163,7 @@ export default {
     },
     info(index) {
       this.visibleData = get(this.tableData, `[${index}]response`, {})
+      this.visibleData.index = index
       this.visible = true
     },
     async deleteAll() {

@@ -32,6 +32,7 @@ const router = new VueRouter({
         {
           path: '/index',
           name: 'Index',
+          props: true,
           component: () => import('@/views/Index')
         },
         {

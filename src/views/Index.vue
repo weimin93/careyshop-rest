@@ -110,6 +110,22 @@ export default {
     csHeaders: () => import('@/components/cs-headers'),
     csResponse: () => import('@/components/cs-response')
   },
+  watch: {
+    value: {
+      handler(val) {
+        // this.request = get(val, 'request', {})
+        // this.$set(this, 'headers', get(val, 'headers', []))
+      },
+      immediate: true
+    }
+  },
+  props: {
+    value: {
+      type: Object,
+      required: false,
+      default: () => {}
+    }
+  },
   data() {
     return {
       is_login: false,
