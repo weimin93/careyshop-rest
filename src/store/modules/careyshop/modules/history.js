@@ -1,3 +1,5 @@
+import { forIn, set, get } from 'lodash'
+
 export default {
   namespaced: true,
   state: {
@@ -44,6 +46,14 @@ export default {
         await dispatch('load')
       }
 
+      let request = {}
+      forIn(get(value, 'response.request'), (val, key) => {
+        if (typeof val !== 'function') {
+          request[key] = val
+        }
+      })
+
+      set(value, 'response.request', request)
       state.history.unshift({
         key: Date.now(),
         ...value
