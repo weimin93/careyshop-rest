@@ -98,8 +98,8 @@ export default {
      * @param index
      * @returns {Promise<void>}
      */
-    async delHistory({ state, dispatch }, index) {
-      state.history.splice(index, 1)
+    async delFavorites({ state, dispatch }, index) {
+      state.favorites.splice(index, 1)
       await dispatch('openecsdb')
     }
   }

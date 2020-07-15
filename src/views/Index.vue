@@ -119,6 +119,11 @@ export default {
           this.request = { ...request }
         }
 
+        const name = get(val, 'name')
+        if (name) {
+          this.favoriteName = val.name
+        }
+
         this.headers = get(val, 'headers', [])
       },
       immediate: true
@@ -366,6 +371,7 @@ export default {
         inputValue: this.favoriteName,
         inputPattern: /\S/,
         inputErrorMessage: this.$t('favorite error'),
+        closeOnClickModal: false,
         type: 'info'
       })
         .then(async({ value }) => {

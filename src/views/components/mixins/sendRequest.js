@@ -3,6 +3,7 @@ import util from '@/utils/util'
 import axios from 'axios'
 import qs from 'qs'
 import dayjs from 'dayjs'
+import { forIn } from 'lodash'
 
 export default {
   methods: {
@@ -117,6 +118,17 @@ export default {
         })
         .catch(err => {
           result = err.response || err
+          if (!err.response) {
+            let data = {}
+            forIn(result, (val, key) => {
+              if (typeof val !== 'function') {
+                data[key] = val
+              }
+            })
+
+            result = data
+          }
+
           result.status = result.status || -1
           result.statusText = err.message
         })

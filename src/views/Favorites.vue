@@ -61,10 +61,31 @@ export default {
   methods: {
     ...mapActions('careyshop/favorites', [
       'load',
-      'delHistory'
+      'delFavorites'
     ]),
     async loadFavorites() {
       await this.load()
+    },
+    apply(index) {
+      this.$router.push({
+        name: 'Index',
+        params: {
+          value: { ...this.favorites[index] }
+        }
+      })
+    },
+    remove(index) {
+      this.delFavorites(index)
+    },
+    down(index) {
+      const data = this.favorites[index]
+      const element = document.createElement('a')
+      element.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data)))
+      element.setAttribute('download', data.name)
+      element.style.display = 'none'
+      element.click()
+    },
+    info(index) {
     }
   }
 }
