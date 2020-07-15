@@ -87,7 +87,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import util from '@/utils/util'
 import sendRequest from './components/mixins/sendRequest'
 import { getAppCaptcha } from '@/api/app'
@@ -184,6 +184,9 @@ export default {
     this.setCaptcha()
   },
   methods: {
+    ...mapActions('careyshop/favorites', [
+      'addToFavorites'
+    ]),
     // 复制响应某个值
     copyRequest(key) {
       let response = get(this.response, key, '')
