@@ -33,6 +33,7 @@
     </el-menu>
 
     <cs-setting ref="setting"></cs-setting>
+    <input type="file" ref="refFile" style="display: none" v-on:change="fileLoad" accept=".json">
   </div>
 </template>
 
@@ -54,7 +55,22 @@ export default {
     setLanguage(value) {
       this.$i18n.locale = value
     },
+    fileLoad() {
+      const selectedFile = this.$refs.refFile.files[0]
+      if (!selectedFile) {
+        return
+      }
+
+      let reader = new FileReader()
+      reader.readAsText(selectedFile)
+      reader.onload = async({ target }) => {
+        await this.importFavorites(target.result)
+        this.$refs.refFile.value = ''
+        this.$message.success(this.$t('favorite success'))
+      }
+    },
     importFav() {
+      this.$refs.refFile.dispatchEvent(new MouseEvent('click'))
     },
     exportFav() {
       this.exportFavorites()
