@@ -101,6 +101,10 @@ export default {
     async delFavorites({ state, dispatch }, index) {
       state.favorites.splice(index, 1)
       await dispatch('openecsdb')
+    },
+    async importFavorites({ state, dispatch }, value) {
+    },
+    async exportFavorites({ state, dispatch }) {
     }
   }
 }
