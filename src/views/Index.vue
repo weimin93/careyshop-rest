@@ -90,7 +90,6 @@
 import { mapState } from 'vuex'
 import util from '@/utils/util'
 import sendRequest from './components/mixins/sendRequest'
-import setFavorites from './components/mixins/setFavorites'
 import { getAppCaptcha } from '@/api/app'
 import { loginAdminUser, logoutAdminUser } from '@/api/admin'
 import { loginClientUser, logoutClientUser } from '@/api/client'
@@ -99,7 +98,7 @@ import { get } from 'lodash'
 
 export default {
   name: 'Index',
-  mixins: [sendRequest, setFavorites],
+  mixins: [sendRequest],
   computed: {
     ...mapState('careyshop/setting', [
       'setting'

@@ -102,9 +102,47 @@ export default {
       state.favorites.splice(index, 1)
       await dispatch('openecsdb')
     },
+    /**
+     * 批量导入
+     * @param state
+     * @param dispatch
+     * @param value
+     * @returns {Promise<void>}
+     */
     async importFavorites({ state, dispatch }, value) {
+      if (!state.isLoaded) {
+        await dispatch('load')
+      }
+
+      const data = JSON.parse(value)
+      if (Array.isArray(data)) {
+        state.favorites.unshift({
+          ...data,
+          date: dayjs().format('YYYY-MM-DD HH:mm:ss')
+        })
+      } else {
+        data.forEach(val => {
+          state.favorites.unshift({
+            ...val,
+            date: dayjs().format('YYYY-MM-DD HH:mm:ss')
+          })
+        })
+      }
+
+      await dispatch('openecsdb')
     },
+    /**
+     * 批量导出
+     * @param state
+     * @param dispatch
+     * @returns {Promise<string>}
+     */
     async exportFavorites({ state, dispatch }) {
+      if (!state.isLoaded) {
+        await dispatch('load')
+      }
+
+      return JSON.stringify(state.favorites)
     }
   }
 }

@@ -17,8 +17,8 @@
       <el-submenu index="favorites">
         <template slot="title">{{$t('favorites')}}</template>
         <el-menu-item index="/favorites">{{$t('manage favorites')}}</el-menu-item>
-        <el-menu-item>{{$t('import favorites')}}</el-menu-item>
-        <el-menu-item>{{$t('export favorites')}}</el-menu-item>
+        <el-menu-item @click="importFav">{{$t('import favorites')}}</el-menu-item>
+        <el-menu-item @click="exportFav">{{$t('export favorites')}}</el-menu-item>
       </el-submenu>
       <el-menu-item index="/history">{{$t('history')}}</el-menu-item>
       <el-menu-item index="/help">{{$t('help')}}</el-menu-item>
@@ -37,9 +37,15 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'cs-navbar',
   methods: {
+    ...mapActions('careyshop/favorites', [
+      'importFavorites',
+      'exportFavorites'
+    ]),
     openSetting() {
       this.$nextTick(() => {
         this.$refs.setting.dialog = true
@@ -47,6 +53,18 @@ export default {
     },
     setLanguage(value) {
       this.$i18n.locale = value
+    },
+    importFav() {
+    },
+    exportFav() {
+      this.exportFavorites()
+        .then(res => {
+          const element = document.createElement('a')
+          element.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(res))
+          element.setAttribute('download', 'favorites')
+          element.style.display = 'none'
+          element.click()
+        })
     }
   }
 }
