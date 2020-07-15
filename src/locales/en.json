@@ -94,5 +94,7 @@
   "response time": "Response Time",
   "date": "Date",
   "delete all": "Delete All",
-  "name": "Name"
+  "name": "Name",
+  "export": "Export",
+  "general": "General"
 }

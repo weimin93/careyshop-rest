@@ -94,5 +94,7 @@
   "response time": "请求耗时",
   "date": "日期",
   "delete all": "全部删除",
-  "name": "名称"
+  "name": "名称",
+  "export": "导出",
+  "general": "常规"
 }

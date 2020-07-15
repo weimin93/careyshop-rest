@@ -38,11 +38,50 @@
         </template>
       </el-table-column>
     </el-table>
+
+    <el-dialog
+      :title="$t('favorites')"
+      :visible.sync="visible">
+
+      <el-tabs v-model="activeName" style="margin-top: -25px;">
+        <el-tab-pane :label="$t('general')" name="general">
+          <p>{{$t('name')}}：<span>{{visibleData.name}}</span></p>
+          <p>{{$t('url')}}：<span>{{get(visibleData, 'request.url')}}</span></p>
+          <p>{{$t('type')}}：<span>{{get(visibleData, 'request.method')}}</span></p>
+          <p>{{$t('date')}}：<span>{{visibleData.date}}</span></p>
+        </el-tab-pane>
+
+        <el-tab-pane :label="$t(get(visibleData, 'request.methodName'))" name="payload">
+          <cs-highlight :code="get(visibleData, 'request.payload')"/>
+        </el-tab-pane>
+
+        <el-tab-pane :label="$t('headers')" name="headers">
+          <el-table :data="visibleData.headers">
+            <el-table-column
+              prop="name"
+              :label="$t('header name')">
+            </el-table-column>
+
+            <el-table-column
+              prop="value"
+              :label="$t('header value')">
+            </el-table-column>
+          </el-table>
+        </el-tab-pane>
+      </el-tabs>
+
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="apply(visibleData.index)" type="primary" size="medium">{{$t('run')}}</el-button>
+        <el-button @click="down(visibleData.index)" type="primary" size="medium">{{$t('export')}}</el-button>
+        <el-button @click="visible = false" size="medium">{{$t('cancel')}}</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import { get } from 'lodash'
 
 export default {
   name: 'Favorites',
@@ -53,6 +92,9 @@ export default {
   },
   data() {
     return {
+      visible: false,
+      visibleData: {},
+      activeName: 'general'
     }
   },
   mounted() {
@@ -63,6 +105,7 @@ export default {
       'load',
       'delFavorites'
     ]),
+    get,
     async loadFavorites() {
       await this.load()
     },
@@ -86,6 +129,13 @@ export default {
       element.click()
     },
     info(index) {
+      this.visibleData = {
+        ...this.favorites[index],
+        index
+      }
+
+      this.visible = true
+      console.log(this.visibleData)
     }
   }
 }
