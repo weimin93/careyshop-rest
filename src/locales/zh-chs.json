@@ -7,7 +7,7 @@
   "manage favorites": "管理收藏夹",
   "import favorites": "导入收藏夹",
   "export favorites": "导出收藏夹",
-  "history": "历史",
+  "history": "记录",
   "help": "帮助",
   "setting": "设置",
   "variable": "变量",
@@ -84,5 +84,15 @@
   "help-5-2": "配置修改保存后已登录的账号会被注销。",
   "copy": "复制",
   "run": "载入",
-  "not setting": "\"设置\"中的部分填写项不完整，部分功能将暂时无法使用。"
+  "not setting": "\"设置\"中的部分填写项不完整，部分功能将暂时无法使用。",
+  "favorite name": "请输入收藏夹名称",
+  "favorite error": "收藏夹名称必须输入",
+  "favorite exist": "收藏名称已存在，是否要继续？",
+  "tips": "提示",
+  "favorite success": "已成功添加到收藏夹",
+  "type": "方式",
+  "response time": "请求耗时",
+  "date": "日期",
+  "delete all": "全部删除",
+  "name": "名称"
 }

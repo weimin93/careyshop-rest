@@ -10,7 +10,7 @@
             clearable>
             <template slot="prepend">
               <el-button @click="formatPayload" :title="$t('format')" icon="el-icon-s-open" size="mini"/>
-              <el-button :title="$t('add favorites')" :disabled="!request.url" icon="el-icon-star-on" size="mini"/>
+              <el-button @click="addFavorites" :title="$t('add favorites')" :disabled="!request.url" icon="el-icon-star-on" size="mini"/>
               <el-button @click="getHelpDocs" :title="$t('get docs')" :disabled="!request.payload || doc_disabled" icon="el-icon-s-help" size="mini"/>
               <cs-menu :disabled="!setting.apiBase" @confirm="confirmMenu"/>
             </template>
@@ -90,6 +90,7 @@
 import { mapState } from 'vuex'
 import util from '@/utils/util'
 import sendRequest from './components/mixins/sendRequest'
+import setFavorites from './components/mixins/setFavorites'
 import { getAppCaptcha } from '@/api/app'
 import { loginAdminUser, logoutAdminUser } from '@/api/admin'
 import { loginClientUser, logoutClientUser } from '@/api/client'
@@ -98,7 +99,7 @@ import { get } from 'lodash'
 
 export default {
   name: 'Index',
-  mixins: [sendRequest],
+  mixins: [sendRequest, setFavorites],
   computed: {
     ...mapState('careyshop/setting', [
       'setting'
@@ -137,6 +138,7 @@ export default {
       label_width: '90px',
       percentage: 0,
       sendLoading: false,
+      favoriteName: '',
       methodMap: [
         { key: 'get', value: 'GET' },
         { key: 'post', value: 'POST' },
@@ -356,6 +358,29 @@ export default {
         })
         .finally(() => {
           this.doc_disabled = false
+        })
+    },
+    // 添加至收藏夹
+    addFavorites() {
+      this.$prompt(this.$t('favorite name'), this.$t('tips'), {
+        inputValue: this.favoriteName,
+        inputPattern: /\S/,
+        inputErrorMessage: this.$t('favorite error'),
+        type: 'info'
+      })
+        .then(async({ value }) => {
+          const data = {
+            name: value,
+            request: this.request,
+            headers: this.headers
+          }
+
+          this.favoriteName = value
+          if (await this.addToFavorites({ vm: this, value: data })) {
+            this.$message.success(this.$t('favorite success'))
+          }
+        })
+        .catch(() => {
         })
     }
   }

@@ -3,29 +3,29 @@
     <el-table :data="tableData">
       <el-table-column
         prop="response.config.baseURL"
-        label="URL">
+        :label="$t('url')">
       </el-table-column>
 
       <el-table-column
         prop="response.config.method"
-        label="Type"
+        :label="$t('type')"
         width="100">
       </el-table-column>
 
       <el-table-column
         prop="response.millis"
-        label="Response Time"
+        :label="$t('response time')"
         width="150">
       </el-table-column>
 
       <el-table-column
         prop="date"
-        label="Date"
+        :label="$t('date')"
         width="180">
       </el-table-column>
 
       <el-table-column
-        label="Actions"
+        :label="$t('actions')"
         align="center"
         width="120">
         <template slot-scope="scope">
@@ -55,7 +55,7 @@
         icon="el-icon-delete"
         size="small"
         type="danger"
-        @click="deleteAll">Delete All</el-button>
+        @click="deleteAll">{{$t('delete all')}}</el-button>
     </div>
 
     <el-dialog
