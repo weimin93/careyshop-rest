@@ -11,7 +11,7 @@
   "dependencies": {
     "@careyshop/stats": "^1.0.13",
     "axios": "^0.19.2",
-    "clipboard-polyfill": "^2.8.6",
+    "clipboard-polyfill": "^3.0.0",
     "core-js": "^3.6.5",
     "dayjs": "^1.8.29",
     "element-ui": "^2.13.2",
@@ -39,7 +39,7 @@
     "@vue/test-utils": "^1.0.3",
     "babel-eslint": "^10.1.0",
     "compression-webpack-plugin": "^4.0.0",
-    "eslint": "^7.4.0",
+    "eslint": "^7.5.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",

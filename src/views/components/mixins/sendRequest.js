@@ -108,6 +108,7 @@ export default {
       // 实际请求
       let result = {}
       let startTime = Date.now()
+      this.response = {}
 
       service({
         params: this.request.methodName === 'params' ? payload : undefined,
