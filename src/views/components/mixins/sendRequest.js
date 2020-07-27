@@ -135,8 +135,8 @@ export default {
         })
         .finally(() => {
           this.percentage = 100
-          result.signSteps = signSteps
           result.millis = `${(Date.now() - startTime) / 1000} seconds`
+          result.signSteps = signSteps
 
           setTimeout(() => {
             if (result.headers && Object.prototype.hasOwnProperty.call(result.headers, 'x-powered-by')) {
