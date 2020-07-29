@@ -59,7 +59,10 @@ export default {
         ...value
       })
 
-      await dispatch('openecsdb')
+      try {
+        await dispatch('openecsdb')
+      } catch (e) {
+      }
     },
     /**
      * 删除历史记录

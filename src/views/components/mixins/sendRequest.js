@@ -154,7 +154,7 @@ export default {
             this.addHistory(history)
             this.sendLoading = false
             this.response = result
-          }, 500)
+          }, 200)
         })
     }
   }
