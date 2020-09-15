@@ -35,7 +35,7 @@ module.exports = {
       configNew.plugins = [
         // gzip
         new CompressionWebpackPlugin({
-          filename: '[path].gz[query]',
+          filename: '[path][base].gz[query]',
           test: new RegExp('\\.(' + ['js', 'css'].join('|') + ')$'),
           threshold: 10240,
           minRatio: 0.8,
