@@ -1,6 +1,6 @@
 {
   "name": "careyshop-rest",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --open",
@@ -13,7 +13,7 @@
     "axios": "^0.20.0",
     "clipboard-polyfill": "^3.0.1",
     "core-js": "^3.6.5",
-    "dayjs": "^1.8.35",
+    "dayjs": "^1.9.0",
     "element-ui": "^2.13.2",
     "flex.css": "^1.1.7",
     "fuse.js": "^6.4.1",
@@ -40,7 +40,7 @@
     "babel-eslint": "^10.1.0",
     "compression-webpack-plugin": "^6.0.0",
     "eslint": "^7.10.0",
-    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
